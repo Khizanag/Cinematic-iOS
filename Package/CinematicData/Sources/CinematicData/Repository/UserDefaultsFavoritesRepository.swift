@@ -9,7 +9,7 @@ import OSLog
 /// read at launch; a database would be ceremony. Because callers only know
 /// `FavoritesRepository`, swapping in SwiftData later touches exactly one
 /// line of the composition root.
-actor UserDefaultsFavoritesRepository: FavoritesRepository {
+public actor UserDefaultsFavoritesRepository: FavoritesRepository {
     private let defaults: UserDefaults
     private let key = "favorites.movies.v1"
     private let logger = Logger(subsystem: "com.khizanag.cinematic", category: "Favorites")
@@ -19,20 +19,20 @@ actor UserDefaultsFavoritesRepository: FavoritesRepository {
     /// Pass a suite name to isolate storage (tests do); `nil` uses the
     /// standard defaults. Injecting the *name* instead of a `UserDefaults`
     /// instance keeps the non-Sendable object inside the actor.
-    init(suiteName: String? = nil) {
+    public init(suiteName: String? = nil) {
         defaults = suiteName.flatMap { UserDefaults(suiteName: $0) } ?? .standard
     }
 
-    func favorites() -> [Movie] {
+    public func favorites() -> [Movie] {
         load()
     }
 
-    func isFavorite(_ id: Movie.ID) -> Bool {
+    public func isFavorite(_ id: Movie.ID) -> Bool {
         load().contains { $0.id == id }
     }
 
     @discardableResult
-    func toggle(_ movie: Movie) -> Bool {
+    public func toggle(_ movie: Movie) -> Bool {
         var favorites = load()
         let isFavorite: Bool
         if let index = favorites.firstIndex(where: { $0.id == movie.id }) {
@@ -47,7 +47,7 @@ actor UserDefaultsFavoritesRepository: FavoritesRepository {
         return isFavorite
     }
 
-    func changes() -> AsyncStream<[Movie]> {
+    public func changes() -> AsyncStream<[Movie]> {
         let id = UUID()
         let (stream, continuation) = AsyncStream<[Movie]>.makeStream()
         continuation.onTermination = { _ in

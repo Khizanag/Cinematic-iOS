@@ -7,11 +7,11 @@ import Foundation
 /// Every transport and decoding failure converts to a domain `MovieError`
 /// right here — code above this type only ever sees domain errors, never
 /// `URLError` or `DecodingError`.
-actor APIClient {
+public actor APIClient {
     private let session: URLSession
     private let decoder: JSONDecoder
 
-    init(session: URLSession = .shared) {
+    public init(session: URLSession = .shared) {
         self.session = session
         decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

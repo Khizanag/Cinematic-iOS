@@ -8,27 +8,27 @@ import Foundation
 /// in-memory) and filters locally. The repository absorbs that quirk — to
 /// callers, search is just search, and swapping in an API with real search
 /// would change only this file.
-struct ITunesMovieCatalogRepository: MovieCatalogRepository {
+public struct ITunesMovieCatalogRepository: MovieCatalogRepository {
     private let client: APIClient
     private let searchIndex = CatalogSearchIndex()
     private let feedLimit = 50
 
-    init(client: APIClient) {
+    public init(client: APIClient) {
         self.client = client
     }
 
-    func topMovies() async throws(MovieError) -> [Movie] {
+    public func topMovies() async throws(MovieError) -> [Movie] {
         let response: TopMoviesFeedDTO = try await client.fetch(.topMovies(limit: feedLimit))
         return response.feed.entries.map(MovieMapper.movie(from:))
     }
 
-    func topMovies(in genre: MovieGenre) async throws(MovieError) -> [Movie] {
+    public func topMovies(in genre: MovieGenre) async throws(MovieError) -> [Movie] {
         let endpoint = ITunesEndpoint.topMoviesInGenre(genreID: genre.feedGenreID, limit: feedLimit)
         let response: TopMoviesFeedDTO = try await client.fetch(endpoint)
         return response.feed.entries.map(MovieMapper.movie(from:))
     }
 
-    func searchMovies(matching query: String) async throws(MovieError) -> [Movie] {
+    public func searchMovies(matching query: String) async throws(MovieError) -> [Movie] {
         if let catalog = await searchIndex.freshCatalog() {
             return Self.results(in: catalog, matching: query)
         }
@@ -37,7 +37,7 @@ struct ITunesMovieCatalogRepository: MovieCatalogRepository {
         return Self.results(in: catalog, matching: query)
     }
 
-    func movieDetails(for id: Movie.ID) async throws(MovieError) -> MovieDetails {
+    public func movieDetails(for id: Movie.ID) async throws(MovieError) -> MovieDetails {
         let response: LookupResponseDTO = try await client.fetch(.lookup(id: id.rawValue))
         guard let first = response.results.first else {
             throw .notFound

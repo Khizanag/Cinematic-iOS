@@ -12,6 +12,7 @@
 		CA11A11C0000000000000073 /* CinematicData in Frameworks */ = {isa = PBXBuildFile; productRef = CA11A11C0000000000000063 /* CinematicData */; };
 		CA11A11C0000000000000074 /* CinematicDesign in Frameworks */ = {isa = PBXBuildFile; productRef = CA11A11C0000000000000064 /* CinematicDesign */; };
 		CA11A11C0000000000000075 /* CinematicPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = CA11A11C0000000000000065 /* CinematicPresentation */; };
+		CA11A11C0000000000000076 /* CinematicDomain in Frameworks */ = {isa = PBXBuildFile; productRef = CA11A11C0000000000000066 /* CinematicDomain */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA11A11C0000000000000076 /* CinematicDomain in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +155,7 @@
 			);
 			name = CinematicTests;
 			packageProductDependencies = (
+				CA11A11C0000000000000066 /* CinematicDomain */,
 			);
 			productName = CinematicTests;
 			productReference = CA11A11C0000000000000021 /* CinematicTests.xctest */;
@@ -650,6 +653,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CA11A11C0000000000000055 /* XCLocalSwiftPackageReference "Package/CinematicPresentation" */;
 			productName = CinematicPresentation;
+		};
+		CA11A11C0000000000000066 /* CinematicDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA11A11C0000000000000052 /* XCLocalSwiftPackageReference "Package/CinematicDomain" */;
+			productName = CinematicDomain;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
