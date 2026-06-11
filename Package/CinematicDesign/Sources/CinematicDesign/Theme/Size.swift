@@ -20,5 +20,11 @@ extension DesignSystem {
             public static let row: CGFloat = 110
             public static let featured: CGFloat = 200
         }
+
+        /// Block heights for skeleton placeholders.
+        public enum Skeleton {
+            public static let header: CGFloat = 22
+            public static let line: CGFloat = 14
+        }
     }
 }
