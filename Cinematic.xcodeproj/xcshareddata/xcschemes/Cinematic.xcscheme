@@ -34,56 +34,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "MVIKitTests"
-               BuildableName = "MVIKitTests"
-               BlueprintName = "MVIKitTests"
-               ReferencedContainer = "container:Package/MVIKit">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CinematicDomainTests"
-               BuildableName = "CinematicDomainTests"
-               BlueprintName = "CinematicDomainTests"
-               ReferencedContainer = "container:Package/CinematicDomain">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CinematicDataTests"
-               BuildableName = "CinematicDataTests"
-               BlueprintName = "CinematicDataTests"
-               ReferencedContainer = "container:Package/CinematicData">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CinematicDesignTests"
-               BuildableName = "CinematicDesignTests"
-               BlueprintName = "CinematicDesignTests"
-               ReferencedContainer = "container:Package/CinematicDesign">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CinematicPresentationTests"
-               BuildableName = "CinematicPresentationTests"
-               BlueprintName = "CinematicPresentationTests"
-               ReferencedContainer = "container:Package/CinematicPresentation">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "CA11A11C0000000000000020"
                BuildableName = "CinematicTests.xctest"
                BlueprintName = "CinematicTests"
