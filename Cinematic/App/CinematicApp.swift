@@ -3,9 +3,21 @@ import SwiftUI
 
 @main
 struct CinematicApp: App {
-    @State private var coordinator = AppCoordinator()
+    @State private var coordinator: AppCoordinator
 
     private let dependencies = AppDependencies.current()
+
+    init() {
+        let coordinator = AppCoordinator()
+        #if DEBUG
+        // `-deepLink cinematic://movie/<id>` routes at launch — lets the
+        // screenshot harness and CLI runs skip the system open-URL prompt.
+        if let raw = UserDefaults.standard.string(forKey: "deepLink"), let url = URL(string: raw) {
+            coordinator.handle(url)
+        }
+        #endif
+        _coordinator = State(initialValue: coordinator)
+    }
 
     var body: some Scene {
         WindowGroup {

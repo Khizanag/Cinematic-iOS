@@ -38,9 +38,22 @@
 		CA11A11C0000000000000031 /* CinematicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinematicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CA11A11C0000000000000045 /* Exceptions for "Cinematic" folder in "Cinematic" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CA11A11C0000000000000010 /* Cinematic */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CA11A11C0000000000000012 /* Cinematic */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CA11A11C0000000000000045 /* Exceptions for "Cinematic" folder in "Cinematic" target */,
+			);
 			path = Cinematic;
 			sourceTree = "<group>";
 		};
@@ -306,6 +319,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Cinematic/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cinematic;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -337,6 +351,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Cinematic/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cinematic;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
