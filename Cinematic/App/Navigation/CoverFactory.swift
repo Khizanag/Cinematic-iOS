@@ -12,22 +12,10 @@ struct CoverFactory: View {
         case let .trailer(url):
             NavigationStack {
                 TrailerPlayerView(url: url)
-                    .toolbar { closeButton }
+                    .toolbar {
+                        CloseToolbarItem { coordinator.dismiss() }
+                    }
             }
-        }
-    }
-}
-
-// MARK: - Toolbar
-private extension CoverFactory {
-    var closeButton: some ToolbarContent {
-        ToolbarItem(placement: .cancellationAction) {
-            Button {
-                coordinator.dismiss()
-            } label: {
-                Image(systemName: "xmark")
-            }
-            .accessibilityLabel(Text("general.close"))
         }
     }
 }

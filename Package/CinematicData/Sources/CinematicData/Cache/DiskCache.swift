@@ -16,9 +16,9 @@ actor DiskCache {
         self.directory = directory
     }
 
-    init(name: String, fileManager: FileManager = .default) {
-        let base = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first
-            ?? fileManager.temporaryDirectory
+    init(name: String) {
+        let base = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+            ?? FileManager.default.temporaryDirectory
         self.init(directory: base.appending(path: name, directoryHint: .isDirectory))
     }
 

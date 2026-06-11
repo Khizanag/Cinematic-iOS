@@ -17,7 +17,9 @@ struct AboutView: View {
         .background(DesignSystem.Color.background)
         .navigationTitle(Text("about.title"))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { closeButton }
+        .toolbar {
+            CloseToolbarItem { coordinator.dismiss() }
+        }
     }
 }
 
@@ -46,17 +48,6 @@ private extension AboutView {
                 }
             }
             .font(DesignSystem.Font.headline)
-        }
-    }
-
-    var closeButton: some ToolbarContent {
-        ToolbarItem(placement: .cancellationAction) {
-            Button {
-                coordinator.dismiss()
-            } label: {
-                Image(systemName: "xmark")
-            }
-            .accessibilityLabel(Text("general.close"))
         }
     }
 }

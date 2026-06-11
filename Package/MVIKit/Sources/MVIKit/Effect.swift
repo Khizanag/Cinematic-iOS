@@ -57,7 +57,11 @@ extension Effect {
     }
 
     /// Combines several effects into one. Operations run in order.
-    public static func merge(_ effects: Effect...) -> Effect {
+    public static func merge(_ effects: [Effect]) -> Effect {
         Effect(operations: effects.flatMap(\.operations))
+    }
+
+    public static func merge(_ effects: Effect...) -> Effect {
+        merge(effects)
     }
 }

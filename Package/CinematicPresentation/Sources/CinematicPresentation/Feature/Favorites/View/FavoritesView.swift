@@ -5,9 +5,9 @@ import SwiftUI
 
 /// The user's saved movies, live-updated from the favorites stream.
 public struct FavoritesView: View {
-    @State private var store: Store<FavoritesReducer>
-
     private let onSelectMovie: (Movie) -> Void
+
+    @State private var store: Store<FavoritesReducer>
 
     public init(
         observeFavorites: ObserveFavoritesUseCase,

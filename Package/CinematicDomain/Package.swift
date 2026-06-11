@@ -1,4 +1,5 @@
 // swift-tools-version: 6.2
+// 6.2 is a deliberate floor: every Xcode 26 release can build this repo.
 import PackageDescription
 
 // The domain layer is deliberately isolation-free: entities are `Sendable`

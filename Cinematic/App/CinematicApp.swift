@@ -3,9 +3,9 @@ import SwiftUI
 
 @main
 struct CinematicApp: App {
-    @State private var coordinator: AppCoordinator
-
     private let dependencies = AppDependencies.current()
+
+    @State private var coordinator: AppCoordinator
 
     init() {
         let coordinator = AppCoordinator()

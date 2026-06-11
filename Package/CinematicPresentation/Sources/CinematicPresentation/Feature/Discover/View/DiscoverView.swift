@@ -8,9 +8,9 @@ import SwiftUI
 /// Navigation-agnostic by design — it reports selection through
 /// `onSelectMovie` and the composition root decides where that leads.
 public struct DiscoverView: View {
-    @State private var store: Store<DiscoverReducer>
-
     private let onSelectMovie: (Movie) -> Void
+
+    @State private var store: Store<DiscoverReducer>
 
     public init(
         fetchDiscoverCatalog: FetchDiscoverCatalogUseCase,

@@ -32,7 +32,7 @@ private extension SearchSkeleton {
     var cell: some View {
         VStack(alignment: .leading, spacing: DesignSystem.Spacing.xxs) {
             SkeletonView()
-                .aspectRatio(1 / PosterImage.aspectRatio, contentMode: .fit)
+                .aspectRatio(1 / PosterImage.heightToWidthRatio, contentMode: .fit)
             SkeletonView(cornerRadius: DesignSystem.CornerRadius.sm)
                 .frame(height: DesignSystem.Size.Skeleton.line)
         }

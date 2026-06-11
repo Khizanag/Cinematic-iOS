@@ -5,9 +5,9 @@ import SwiftUI
 
 /// Catalog search with native `searchable`, debounced through the reducer.
 public struct SearchView: View {
-    @State private var store: Store<SearchReducer>
-
     private let onSelectMovie: (Movie) -> Void
+
+    @State private var store: Store<SearchReducer>
 
     public init(
         searchMovies: SearchMoviesUseCase,

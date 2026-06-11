@@ -1,4 +1,5 @@
 // swift-tools-version: 6.2
+// 6.2 is a deliberate floor: every Xcode 26 release can build this repo.
 import PackageDescription
 
 // The data layer is isolation-free like the domain it implements: repositories

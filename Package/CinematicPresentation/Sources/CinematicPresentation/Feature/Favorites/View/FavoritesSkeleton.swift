@@ -23,7 +23,7 @@ private extension FavoritesSkeleton {
             SkeletonView()
                 .frame(
                     width: DesignSystem.Size.Poster.thumbnail,
-                    height: DesignSystem.Size.Poster.thumbnail * PosterImage.aspectRatio,
+                    height: DesignSystem.Size.Poster.thumbnail * PosterImage.heightToWidthRatio,
                 )
             VStack(alignment: .leading, spacing: DesignSystem.Spacing.xs) {
                 SkeletonView(cornerRadius: DesignSystem.CornerRadius.sm)

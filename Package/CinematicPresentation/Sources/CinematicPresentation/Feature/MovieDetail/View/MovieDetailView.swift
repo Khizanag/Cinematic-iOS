@@ -6,9 +6,9 @@ import SwiftUI
 /// One movie, in full: poster, metadata, summary, trailer, store link, and
 /// the favorite toggle.
 public struct MovieDetailView: View {
-    @State private var store: Store<MovieDetailReducer>
-
     private let onPlayTrailer: (URL) -> Void
+
+    @State private var store: Store<MovieDetailReducer>
 
     public init(
         movieID: Movie.ID,

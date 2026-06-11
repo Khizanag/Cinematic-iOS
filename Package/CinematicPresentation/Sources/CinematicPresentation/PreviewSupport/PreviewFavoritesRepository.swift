@@ -38,8 +38,8 @@ public actor PreviewFavoritesRepository: FavoritesRepository {
     public func changes() -> AsyncStream<[Movie]> {
         let id = UUID()
         let (stream, continuation) = AsyncStream<[Movie]>.makeStream()
-        continuation.onTermination = { _ in
-            Task { await self.removeContinuation(id) }
+        continuation.onTermination = { [weak self] _ in
+            Task { await self?.removeContinuation(id) }
         }
         continuations[id] = continuation
         return stream

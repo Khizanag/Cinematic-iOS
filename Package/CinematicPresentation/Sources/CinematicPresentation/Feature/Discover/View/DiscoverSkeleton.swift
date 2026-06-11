@@ -33,7 +33,7 @@ private extension DiscoverSkeleton {
                     SkeletonView()
                         .frame(
                             width: posterWidth,
-                            height: posterWidth * PosterImage.aspectRatio,
+                            height: posterWidth * PosterImage.heightToWidthRatio,
                         )
                 }
             }

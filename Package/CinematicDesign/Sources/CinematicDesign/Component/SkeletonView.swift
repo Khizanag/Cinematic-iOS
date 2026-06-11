@@ -6,9 +6,10 @@ import SwiftUI
 /// under Reduce Motion.
 public struct SkeletonView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var isAnimating = false
 
     private let cornerRadius: CGFloat
+
+    @State private var isAnimating = false
 
     public init(cornerRadius: CGFloat = DesignSystem.CornerRadius.md) {
         self.cornerRadius = cornerRadius

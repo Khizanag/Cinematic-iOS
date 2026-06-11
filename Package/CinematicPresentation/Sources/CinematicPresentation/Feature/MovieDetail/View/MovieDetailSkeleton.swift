@@ -24,7 +24,7 @@ private extension MovieDetailSkeleton {
         SkeletonView()
             .frame(
                 width: DesignSystem.Size.Poster.featured,
-                height: DesignSystem.Size.Poster.featured * PosterImage.aspectRatio,
+                height: DesignSystem.Size.Poster.featured * PosterImage.heightToWidthRatio,
             )
     }
 

@@ -13,7 +13,9 @@ public struct ObserveFavoritesUseCase: Sendable {
         return AsyncStream { continuation in
             let task = Task {
                 // Subscribe before reading the snapshot so a toggle racing the
-                // first read is buffered by the stream, not lost.
+                // first read is buffered by the stream, not lost. The race can
+                // deliver one duplicate emission — assigning the same list again
+                // is idempotent, losing a change would not be.
                 let changes = await repository.changes()
                 continuation.yield(await repository.favorites())
                 for await favorites in changes {

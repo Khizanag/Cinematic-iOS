@@ -25,6 +25,6 @@ struct DesignTokenTests {
 
     @Test("Posters keep the 2:3 sheet aspect")
     func posterAspectRatio() {
-        #expect(PosterImage.aspectRatio == 1.5)
+        #expect(PosterImage.heightToWidthRatio == 1.5)
     }
 }

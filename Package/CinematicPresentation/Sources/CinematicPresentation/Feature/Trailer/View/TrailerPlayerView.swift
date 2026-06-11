@@ -13,7 +13,10 @@ public struct TrailerPlayerView: View {
     public var body: some View {
         VideoPlayer(player: player)
             .ignoresSafeArea()
-            .onAppear { player.play() }
+            .onAppear {
+                try? AVAudioSession.sharedInstance().setCategory(.playback)
+                player.play()
+            }
             .onDisappear { player.pause() }
     }
 }
