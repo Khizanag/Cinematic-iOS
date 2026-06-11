@@ -1,0 +1,224 @@
+# .swiftlint.yml — managed by gigai-swiftlint
+# Custom rules synced from orgs/personal/swiftlint-custom-rules.yml
+# Last synced: 2026-06-11
+#
+# Run `swiftlint --strict` — it must pass with zero violations before any commit.
+
+included:
+  - Cinematic
+  - CinematicTests
+  - CinematicUITests
+  - Package
+
+excluded:
+  - .build
+  - DerivedData
+  - Pods
+  - "**/.build"
+  - "**/Generated"
+  - "**/*.generated.swift"
+  - Cinematic/Resource
+  - Package/CinematicPresentation/Sources/CinematicPresentation/Resources
+
+disabled_rules:
+  - todo
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - explicit_init
+  - first_where
+  - last_where
+  - redundant_nil_coalescing
+  - sorted_first_last
+  - toggle_bool
+  - sorted_imports
+  - force_unwrapping
+  - implicit_return
+  - modifier_order
+  - number_separator
+  - shorthand_optional_binding
+  - fatal_error_message
+  - closure_spacing
+  - collection_alignment
+  - empty_collection_literal
+
+line_length:
+  warning: 120
+  error: 320
+  ignores_comments: true
+  ignores_urls: true
+
+file_length:
+  warning: 650
+  error: 800
+
+type_body_length:
+  warning: 300
+  error: 500
+
+function_body_length:
+  warning: 60
+  error: 100
+
+cyclomatic_complexity:
+  warning: 15
+  error: 25
+
+nesting:
+  type_level: 2
+
+identifier_name:
+  min_length:
+    warning: 2
+  excluded:
+    - id
+    - x
+    - y
+    - z
+    - i
+
+type_name:
+  min_length: 3
+
+# Identifiers (API genre IDs, HTTP status codes) are opaque — separators only
+# help genuinely large quantities.
+number_separator:
+  minimum_length: 6
+
+trailing_comma:
+  mandatory_comma: true
+
+vertical_whitespace:
+  max_empty_lines: 1
+
+# === Custom rules synced from gigai (orgs/personal/swiftlint-custom-rules.yml) ===
+custom_rules:
+    # === Code Style ===
+
+    no_empty_line_after_mark_comment:
+        name: "No Empty Line After MARK Comment"
+        regex: '// MARK:[^\n]*\n\n'
+        message: "No empty line allowed after MARK comment"
+        severity: error
+
+    no_empty_line_after_doc_comment:
+        name: "No Empty Line After Documentation Comment"
+        regex: '///[^\n]*\n\n\s*(public |private |internal |fileprivate |open |@|struct |class |enum |func |var |let |protocol |extension )'
+        message: "No empty line allowed between documentation comment and declaration"
+        severity: error
+
+    # === Navigation ===
+
+    no_navigation_link:
+        name: "No NavigationLink"
+        regex: 'NavigationLink\s*[\({]'
+        message: "Use coordinator.push() / coordinator.present() instead of NavigationLink"
+        severity: error
+
+    no_navigation_destination:
+        name: "No navigationDestination in Child Views"
+        regex: '\.navigationDestination\(for:'
+        message: "Only CoordinatedNavigationStack should declare navigationDestination. Use coordinator.push() instead"
+        severity: warning
+        excluded: "CoordinatedNavigationStack\\.swift"
+
+    # === Design System ===
+
+    no_inline_font:
+        name: "No Inline Font System Size"
+        regex: '\.font\(\.system\(size:'
+        message: "Use DesignSystem.Font.* tokens instead of inline .font(.system(size:))"
+        severity: error
+        excluded: "Typography\\.swift"
+
+    no_raw_foreground_white_black:
+        name: "No Raw White/Black Foreground"
+        regex: '\.foregroundStyle\(\.(white|black)\)'
+        message: "Use DesignSystem.Color.onAccent or .primary instead of raw .white/.black"
+        severity: error
+
+    no_raw_background_white_black:
+        name: "No Raw White/Black Background"
+        regex: '\.background\(\.(white|black)\)'
+        message: "Use DesignSystem.Color.cardBackground or .background instead of raw .white/.black"
+        severity: error
+
+    no_on_tap_gesture_navigation:
+        name: "No onTapGesture for Navigation"
+        regex: '\.onTapGesture\s*\{[^}]*coordinator\.'
+        message: "Use Button with coordinator.push() instead of onTapGesture"
+        severity: error
+
+    # === Sheets ===
+
+    no_presentation_drag_indicator:
+        name: "No presentationDragIndicator"
+        regex: '\.presentationDragIndicator\('
+        message: "Do not use .presentationDragIndicator — the system default is preferred"
+        severity: error
+
+    # === Package.swift ===
+
+    no_trailing_git_in_package_url:
+        name: "No Trailing .git in Package URL"
+        regex: '\.package\(url:\s*"[^"]+\.git"'
+        message: "Remove trailing .git from package URL — it is unnecessary"
+        severity: error
+        included: "Package\\.swift"
+
+    no_up_to_next_major:
+        name: "Use from: Instead of .upToNextMajor(from:)"
+        regex: '\.upToNextMajor\(from:'
+        message: "Use the shorthand 'from:' instead of '.upToNextMajor(from:)'"
+        severity: error
+        included: "Package\\.swift"
+
+    # === Loading states ===
+
+    no_bare_full_screen_progress_view:
+        name: "No Bare Full-Screen ProgressView"
+        regex: 'ProgressView\(\)\s*\.controlSize\(\.large\)'
+        message: "Replace full-screen ProgressView with the matching screen-specific skeleton. See docs/ARCHITECTURE.md."
+        severity: error
+
+    # === Readability ===
+
+    no_deep_nested_calls:
+        name: "No Deeply Nested Calls on One Line"
+        regex: '\([^()"\n]*\([^()"\n]*\([^()"\n]*$'
+        message: "Break each opening ( onto its own line — do not stack 3+ unclosed nested calls on one line."
+        severity: error
+
+    # === View Structure ===
+
+    no_private_func_in_view:
+        name: "No private func in View body"
+        regex: '^    private func '
+        message: "Move private helpers into a `private extension <ViewName>` block at the bottom of the file. Inside a private extension you do not need the `private` keyword."
+        severity: error
+        included: '.*/View/.*\.swift'
+
+    no_private_computed_var_in_view:
+        name: "No private computed var in View body"
+        regex: '^    private var \w+\s*:\s*[^=]*\{'
+        message: "Move private computed properties into a `private extension <ViewName>` block at the bottom of the file."
+        severity: error
+        included: '.*/View/.*\.swift'
+
+    # === Property privacy ===
+
+    view_property_wrapper_must_be_private:
+        name: "View Property Wrapper Must Be Private"
+        regex: '^    (@State|@Environment\([^)]+\)|@FocusState|@SceneStorage\([^)]+\)|@AppStorage\([^)]+\)|@Namespace|@ScaledMetric|@GestureState|@StateObject|@ObservedObject|@EnvironmentObject|@Bindable)\s+var\s+'
+        message: "View property wrappers (@State, @Environment, @FocusState, @AppStorage, @SceneStorage, @Namespace, @ScaledMetric, @GestureState, @Bindable, @StateObject, @ObservedObject, @EnvironmentObject) MUST be `private`. If a cross-file extension needs access, consolidate the extension into the View file."
+        severity: error
+        included: '.*/View/.*\.swift'
+
+    # === Documentation ===
+
+    extension_requires_mark:
+        name: "Extension Requires MARK Comment"
+        regex: '^\}\s*\n+\s*(?:public |private |fileprivate |internal )?extension '
+        message: "Every extension should be preceded by a `// MARK: - SectionName` comment that labels what the extension provides (e.g. `// MARK: - Sub-views`, `// MARK: - Hashable`, `// MARK: - Helpers`)."
+        severity: error
