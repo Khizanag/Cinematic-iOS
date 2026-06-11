@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: SwiftLint (strict)
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install SwiftLint
+        run: brew install swiftlint
+      - name: Lint
+        run: swiftlint lint --strict --reporter github-actions-logging
+
+  package-tests:
+    name: ${{ matrix.package }} (swift test)
+    runs-on: macos-26
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [MVIKit, CinematicDomain, CinematicData]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select latest Xcode 26
+        run: |
+          sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+          xcodebuild -version
+      - name: Test
+        run: swift test --package-path Package/${{ matrix.package }}
+
+  simulator-tests:
+    name: ${{ matrix.scheme }} (simulator)
+    runs-on: macos-26
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - scheme: CinematicDesign
+            flags: ""
+          - scheme: CinematicPresentation
+            flags: ""
+          - scheme: Cinematic
+            flags: -project Cinematic.xcodeproj
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select latest Xcode 26
+        run: |
+          sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+          xcodebuild -version
+      - name: Resolve simulator destination
+        id: simulator
+        run: |
+          device=$(xcrun simctl list devices available | grep -E "iPhone (17|16)" | head -1 | sed -E 's/^ *([^(]*[^ (]) *\(.*/\1/')
+          echo "Using simulator: $device"
+          echo "device=$device" >> "$GITHUB_OUTPUT"
+      - name: Test
+        run: >
+          xcodebuild test ${{ matrix.flags }}
+          -scheme ${{ matrix.scheme }}
+          -destination "platform=iOS Simulator,name=${{ steps.simulator.outputs.device }}"
+        working-directory: ${{ matrix.scheme == 'Cinematic' && '.' || format('Package/{0}', matrix.scheme) }}
