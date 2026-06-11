@@ -3,7 +3,7 @@ import Testing
 
 private struct CounterReducer: Reducer {
     struct State: Equatable {
-        var count = 0
+        var value = 0
         var isWorking = false
     }
 
@@ -13,13 +13,13 @@ private struct CounterReducer: Reducer {
         case delayedIncrement
         case delayedIncrementLanded
         case cancelDelayedIncrement
-        case setCount(Int)
+        case setValue(Int)
     }
 
     func reduce(_ state: inout State, _ intent: Intent) -> Effect<Intent> {
         switch intent {
         case .increment:
-            state.count += 1
+            state.value += 1
             return .none
 
         case .incrementTwiceViaMergedEffects:
@@ -38,15 +38,15 @@ private struct CounterReducer: Reducer {
 
         case .delayedIncrementLanded:
             state.isWorking = false
-            state.count += 1
+            state.value += 1
             return .none
 
         case .cancelDelayedIncrement:
             state.isWorking = false
             return .cancel("delayed")
 
-        case let .setCount(count):
-            state.count = count
+        case let .setValue(count):
+            state.value = count
             return .none
         }
     }
@@ -58,7 +58,7 @@ struct StoreTests {
     func synchronousIntentMutatesState() {
         let store = makeStore()
         store.send(.increment)
-        #expect(store.state.count == 1)
+        #expect(store.state.value == 1)
         #expect(!store.hasPendingEffects)
     }
 
@@ -68,7 +68,7 @@ struct StoreTests {
         store.send(.delayedIncrement)
         #expect(store.state.isWorking)
         await store.settle()
-        #expect(store.state == CounterReducer.State(count: 1, isWorking: false))
+        #expect(store.state == CounterReducer.State(value: 1, isWorking: false))
     }
 
     @Test("Restarting an identified effect cancels the previous run")
@@ -77,7 +77,7 @@ struct StoreTests {
         store.send(.delayedIncrement)
         store.send(.delayedIncrement)
         await store.settle()
-        #expect(store.state.count == 1)
+        #expect(store.state.value == 1)
     }
 
     @Test("cancel(id:) stops an in-flight effect")
@@ -86,7 +86,7 @@ struct StoreTests {
         store.send(.delayedIncrement)
         store.send(.cancelDelayedIncrement)
         await store.settle()
-        #expect(store.state.count == 0)
+        #expect(store.state.value == 0)
         #expect(!store.hasPendingEffects)
     }
 
@@ -95,16 +95,16 @@ struct StoreTests {
         let store = makeStore()
         store.send(.incrementTwiceViaMergedEffects)
         await store.settle()
-        #expect(store.state.count == 2)
+        #expect(store.state.value == 2)
     }
 
     @Test("Bindings read state and write through intents")
     func bindingRoundTrip() {
         let store = makeStore()
-        let binding = store.binding(\.count, send: CounterReducer.Intent.setCount)
+        let binding = store.binding(\.value, send: CounterReducer.Intent.setValue)
         #expect(binding.wrappedValue == 0)
         binding.wrappedValue = 5
-        #expect(store.state.count == 5)
+        #expect(store.state.value == 5)
     }
 }
 
