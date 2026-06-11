@@ -317,6 +317,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 92WH2S2Z85;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cinematic/Info.plist;
@@ -349,6 +350,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 92WH2S2Z85;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cinematic/Info.plist;
@@ -582,15 +584,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CA11A11C0000000000000040 /* Build configuration list for PBXProject "Cinematic" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CA11A11C0000000000000041 /* Debug */,
-				CA11A11C0000000000000042 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		CA11A11C0000000000000016 /* Build configuration list for PBXNativeTarget "Cinematic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -614,6 +607,15 @@
 			buildConfigurations = (
 				CA11A11C0000000000000037 /* Debug */,
 				CA11A11C0000000000000038 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA11A11C0000000000000040 /* Build configuration list for PBXProject "Cinematic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA11A11C0000000000000041 /* Debug */,
+				CA11A11C0000000000000042 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
