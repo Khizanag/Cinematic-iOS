@@ -20,6 +20,7 @@ struct ContentView: View {
                 }
             }
         }
+        .tabBarMinimizeBehavior(.onScrollDown)
     }
 }
 
@@ -47,14 +48,19 @@ private extension ContentView {
         }
     }
 
+    /// Secondary actions land in the toolbar's overflow menu on iOS 26 —
+    /// menu rows need a full `Label`, never a bare icon.
     var aboutButton: some ToolbarContent {
         ToolbarItem(placement: .secondaryAction) {
             Button {
                 coordinator.coordinator(for: .discover).present(.about)
             } label: {
-                Image(systemName: "info.circle")
+                Label {
+                    Text("about.title")
+                } icon: {
+                    Image(systemName: "info.circle")
+                }
             }
-            .accessibilityLabel(Text("about.title"))
         }
     }
 }
