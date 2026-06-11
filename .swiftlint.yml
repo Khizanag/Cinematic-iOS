@@ -78,8 +78,11 @@ identifier_name:
     - z
     - i
 
+# `ID` is the idiomatic name for an Identifiable's identifier type.
 type_name:
   min_length: 3
+  excluded:
+    - ID
 
 # Identifiers (API genre IDs, HTTP status codes) are opaque — separators only
 # help genuinely large quantities.
