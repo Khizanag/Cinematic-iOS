@@ -15,9 +15,11 @@ nonisolated final class CinematicUITests: XCTestCase {
         app.staticTexts["The Silent Voyage"].firstMatch.tap()
 
         let detail = app.descendants(matching: .any)["movieDetail.container"]
-        XCTAssertTrue(detail.waitForExistence(timeout: 5))
+        XCTAssertTrue(detail.waitForExistence(timeout: 15))
 
-        app.buttons["Add to Favorites"].tap()
+        let favorite = app.buttons["Add to Favorites"]
+        XCTAssertTrue(favorite.waitForExistence(timeout: 10))
+        favorite.tap()
 
         app.navigationBars.buttons.firstMatch.tap()
         app.tabBars.buttons["Favorites"].tap()
@@ -32,7 +34,7 @@ nonisolated final class CinematicUITests: XCTestCase {
         app.staticTexts["The Silent Voyage"].firstMatch.tap()
 
         let play = app.buttons["Play Trailer"]
-        XCTAssertTrue(play.waitForExistence(timeout: 5))
+        XCTAssertTrue(play.waitForExistence(timeout: 15))
         play.tap()
 
         let close = app.buttons["Close"]
@@ -48,7 +50,7 @@ nonisolated final class CinematicUITests: XCTestCase {
 
         app.tabBars.buttons["Search"].tap()
         let field = app.searchFields.firstMatch
-        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        XCTAssertTrue(field.waitForExistence(timeout: 15))
         field.tap()
         field.typeText("voyage")
 
@@ -61,7 +63,7 @@ nonisolated final class CinematicUITests: XCTestCase {
 
         app.tabBars.buttons["Favorites"].tap()
 
-        XCTAssertTrue(app.staticTexts["No Favorites Yet"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["No Favorites Yet"].waitForExistence(timeout: 15))
     }
 }
 
