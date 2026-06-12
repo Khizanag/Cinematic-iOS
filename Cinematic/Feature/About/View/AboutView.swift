@@ -3,7 +3,7 @@ import SwiftUI
 
 /// What this app is and why it exists, with a pointer to the repository.
 struct AboutView: View {
-    @Environment(TabCoordinator.self) private var coordinator
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ScrollView {
@@ -18,7 +18,7 @@ struct AboutView: View {
         .navigationTitle(Text("about.title"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            CloseToolbarItem { coordinator.dismiss() }
+            CloseToolbarItem { dismiss() }
         }
     }
 }

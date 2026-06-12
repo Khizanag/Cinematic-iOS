@@ -1,21 +1,16 @@
 import CinematicPresentation
 import SwiftUI
 
-/// Maps a `Cover` to its full-screen content.
+/// Maps a `Cover` to its full-screen content. Covers own their dismissal
+/// through the `dismiss` environment, so no coordinator plumbing is needed
+/// across the presentation boundary.
 struct CoverFactory: View {
-    @Environment(TabCoordinator.self) private var coordinator
-
     let cover: Cover
 
     var body: some View {
         switch cover {
         case let .trailer(url):
-            NavigationStack {
-                TrailerPlayerView(url: url)
-                    .toolbar {
-                        CloseToolbarItem { coordinator.dismiss() }
-                    }
-            }
+            TrailerPlayerView(url: url)
         }
     }
 }

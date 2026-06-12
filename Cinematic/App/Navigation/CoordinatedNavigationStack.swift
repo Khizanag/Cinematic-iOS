@@ -11,6 +11,7 @@ struct CoordinatedNavigationStack<Root: View>: View {
     var body: some View {
         NavigationStack(path: $coordinator.path) {
             root()
+                .transparentSystemChrome()
                 .navigationDestination(for: Screen.self) { screen in
                     ScreenFactory(screen: screen)
                 }

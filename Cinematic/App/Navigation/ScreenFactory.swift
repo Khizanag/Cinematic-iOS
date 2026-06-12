@@ -11,6 +11,15 @@ struct ScreenFactory: View {
     let screen: Screen
 
     var body: some View {
+        destination
+            .transparentSystemChrome()
+    }
+}
+
+// MARK: - Destinations
+private extension ScreenFactory {
+    @ViewBuilder
+    var destination: some View {
         switch screen {
         case let .movieDetail(id):
             MovieDetailView(
