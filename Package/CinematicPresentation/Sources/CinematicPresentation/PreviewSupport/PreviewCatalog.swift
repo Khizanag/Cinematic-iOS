@@ -35,7 +35,7 @@ nonisolated public enum PreviewCatalog {
             """,
             advisoryRating: "PG-13",
             duration: .seconds(8340),
-            trailerURL: nil,
+            trailerURL: URL(string: "https://example.com/preview.m4v"),
             storeURL: URL(string: "https://example.com/store/\(id.rawValue)"),
         )
     }

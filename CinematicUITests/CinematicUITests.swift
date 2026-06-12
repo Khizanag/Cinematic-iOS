@@ -25,6 +25,24 @@ nonisolated final class CinematicUITests: XCTestCase {
     }
 
     @MainActor
+    func testTrailerCoverOpensAndCloses() {
+        let app = launchStubbedApp()
+
+        XCTAssertTrue(app.staticTexts["The Silent Voyage"].waitForExistence(timeout: 10))
+        app.staticTexts["The Silent Voyage"].firstMatch.tap()
+
+        let play = app.buttons["Play Trailer"]
+        XCTAssertTrue(play.waitForExistence(timeout: 5))
+        play.tap()
+
+        let close = app.buttons["Close"]
+        XCTAssertTrue(close.waitForExistence(timeout: 5))
+        close.tap()
+
+        XCTAssertTrue(play.waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testSearchFindsCatalogMovie() {
         let app = launchStubbedApp()
 
