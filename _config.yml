@@ -26,7 +26,7 @@ defaults:
       path: ""
     values:
       layout: default
-      image: /Cinematic-iOS/docs/og-image.png
+      image: /docs/og-image.png
 
 exclude:
   - Package/
