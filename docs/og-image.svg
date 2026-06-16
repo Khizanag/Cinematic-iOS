@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280" height="640" viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0A12"/>
+      <stop offset="0.55" stop-color="#141320"/>
+      <stop offset="1" stop-color="#1C1B27"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8A84FB"/>
+      <stop offset="1" stop-color="#F98AD0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#635BF3" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#635BF3" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      text { font-family: 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <circle cx="1040" cy="300" r="360" fill="url(#glow)"/>
+
+  <!-- decorative play / film motif -->
+  <g transform="translate(980, 320)" opacity="0.9">
+    <circle r="150" fill="none" stroke="url(#accent)" stroke-width="3" opacity="0.5"/>
+    <circle r="110" fill="#1C1B27" stroke="url(#accent)" stroke-width="2" opacity="0.8"/>
+    <path d="M -38 -56 L 70 0 L -38 56 Z" fill="url(#accent)"/>
+  </g>
+
+  <!-- eyebrow -->
+  <text x="96" y="170" fill="#8A84FB" font-size="26" font-weight="600" letter-spacing="6">iOS 26  ·  SWIFT 6  ·  SWIFTUI</text>
+
+  <!-- title -->
+  <text x="92" y="300" fill="#F4F4FA" font-size="148" font-weight="800" letter-spacing="-3">Cinematic</text>
+  <rect x="100" y="330" width="150" height="8" rx="4" fill="url(#accent)"/>
+
+  <!-- tagline -->
+  <text x="98" y="412" fill="#F4F4FA" font-size="46" font-weight="600">MVI + Clean Architecture, shown working</text>
+
+  <!-- subtitle -->
+  <text x="98" y="466" fill="#A8A8BE" font-size="29" font-weight="400">Five layered Swift packages · typed throws · 79 tests · zero dependencies</text>
+
+  <!-- footer url -->
+  <text x="98" y="566" fill="#8A84FB" font-size="28" font-weight="600">github.com/Khizanag/Cinematic-iOS</text>
+</svg>

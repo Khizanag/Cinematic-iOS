@@ -6,12 +6,28 @@ MVI + Clean Architecture for SwiftUI, shown working. Cinematic is a complete mov
 ![Swift 6](https://img.shields.io/badge/Swift-6-F05138)
 ![iOS 26+](https://img.shields.io/badge/iOS-26%2B-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)
+[![Docs](https://img.shields.io/badge/docs-online-635BF3)](https://khizanag.github.io/Cinematic-iOS/)
+[![GitHub stars](https://img.shields.io/github/stars/Khizanag/Cinematic-iOS?style=social)](https://github.com/Khizanag/Cinematic-iOS/stargazers)
 
 | Discover | Movie detail | Discover, dark | Detail, dark |
 |---|---|---|---|
 | ![Discover screen, light mode](docs/screenshots/discover-light.png) | ![Movie detail screen, light mode](docs/screenshots/detail-light.png) | ![Discover screen, dark mode](docs/screenshots/discover-dark.png) | ![Movie detail screen, dark mode](docs/screenshots/detail-dark.png) |
 
 No API keys, no accounts, no setup. Clone, open, run — the catalog comes from Apple's public iTunes feeds.
+
+**[Read the full walkthrough on the documentation site →](https://khizanag.github.io/Cinematic-iOS/)**
+
+## Contents
+
+- [Why this repository exists](#why-this-repository-exists)
+- [The architecture in one diagram](#the-architecture-in-one-diagram)
+- [The MVI loop](#the-mvi-loop)
+- [What it demonstrates](#what-it-demonstrates)
+- [How it compares: MVI vs MVVM vs MV vs TCA](#how-it-compares-mvi-vs-mvvm-vs-mv-vs-tca)
+- [Quick start](#quick-start)
+- [Project layout](#project-layout)
+- [Documentation](#documentation)
+- [Testing](#testing)
 
 ## Why this repository exists
 
@@ -67,6 +83,19 @@ The whole machinery is [`MVIKit`](Package/MVIKit) — about 250 lines you can re
 - Per-screen skeletons, `ContentUnavailableView` for empty and error states, Dynamic Type, VoiceOver labels, Reduce Motion guards, and a String Catalog per module.
 - Deep links (`cinematic://movie/<id>`), a coordinator-driven `NavigationStack` per tab, and UI tests that run against an injected in-memory world.
 
+## How it compares: MVI vs MVVM vs MV vs TCA
+
+SwiftUI leaves room for several architectures, and the right one depends on how hard the state is. Model-View-Intent earns its keep when state is genuinely hard — concurrent loads, cancellation, multiple sources you must keep consistent. When it isn't, a lighter pattern wins:
+
+| Pattern | Reach for it when | The trade-off |
+|---|---|---|
+| **MV** (`@Observable` model) | A screen has one source of truth and little logic | View and logic blur as the screen grows |
+| **MVVM** | You want testable view logic without much ceremony | No built-in story for side effects or cancellation |
+| **MVI** — *what Cinematic uses* | State has races, cancellation, or several sources to reconcile | One reducer plus effects per feature is more structure upfront |
+| **TCA** | A large app needs composable features and exhaustive test tooling | A third-party dependency and a steeper learning curve |
+
+`MVIKit` is the smallest thing that makes the MVI guarantees true — read it before reaching for a framework, so you know exactly what a framework would buy you. [docs/MVI.md](docs/MVI.md) goes deep on the reducer, effect cancellation, and testing.
+
 ## Quick start
 
 ```bash
@@ -101,6 +130,8 @@ Cinematic-iOS/
 
 ## Documentation
 
+Read it all on the **[documentation site](https://khizanag.github.io/Cinematic-iOS/)**, or in-repo:
+
 | Document | Covers |
 |---|---|
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | The layers, the dependency rule, the composition root, concurrency, trade-offs |
@@ -125,6 +156,10 @@ xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'pla
 ```
 
 79 tests across six suites: reducer state machines, use-case rules, DTO decoding against captured payloads, repository behavior over a stubbed `URLProtocol`, persistence round-trips, composition wiring, and three black-box UI flows. `swiftlint --strict` passes with zero violations.
+
+## Contributing
+
+Issues and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). If this project made MVI or Clean Architecture click for you, a ⭐️ helps other iOS developers find it.
 
 ## License
 

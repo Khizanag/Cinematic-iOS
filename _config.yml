@@ -1,0 +1,41 @@
+# GitHub Pages — turns the README and docs/ into a Google-indexable site.
+# jekyll-seo-tag emits <title>, meta description, Open Graph, Twitter cards,
+# and JSON-LD; jekyll-relative-links rewrites in-repo .md links to .html.
+title: "Cinematic — MVI + Clean Architecture for SwiftUI"
+description: >-
+  A complete, documented iOS 26 reference app showing Model-View-Intent and
+  Clean Architecture in Swift 6 with SwiftUI. Unidirectional data flow, modular
+  Swift packages, typed throws, and a full test suite — a real reference, not a toy.
+url: "https://khizanag.github.io"
+baseurl: "/Cinematic-iOS"
+lang: en_US
+author: Giga Khizanishvili
+twitter:
+  card: summary_large_image
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      image: /Cinematic-iOS/docs/og-image.png
+
+exclude:
+  - Package/
+  - Cinematic/
+  - CinematicTests/
+  - CinematicUITests/
+  - Cinematic.xcodeproj/
+  - CLAUDE.md
+  - "*.xctestplan"
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
