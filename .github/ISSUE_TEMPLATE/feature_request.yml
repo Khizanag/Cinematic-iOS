@@ -1,0 +1,21 @@
+name: Feature or improvement
+description: Suggest a change that makes the example clearer or more useful.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Cinematic is a teaching reference — proposals are weighed on whether they make the example clearer, not just more featureful.
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you change, and why?
+      placeholder: A worked example of paginating a list would show how effects compose…
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you weighed, and why this one is better.
+    validations:
+      required: false

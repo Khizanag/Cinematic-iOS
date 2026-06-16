@@ -1,0 +1,5 @@
+# Enable a "Sponsor" button by uncommenting a line below once the platform is
+# configured for the Khizanag account. Leaving these commented avoids a broken
+# button.
+# github: [Khizanag]
+# custom: ["https://example.com/donate"]

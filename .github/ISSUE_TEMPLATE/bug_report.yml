@@ -1,0 +1,41 @@
+name: Bug report
+description: Something behaves incorrectly or crashes.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to file a report. Please fill in what you can.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect instead?
+      placeholder: On the detail screen, tapping the heart…
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the Discover tab
+        2. Tap a movie
+        3. …
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Xcode version, iOS / simulator version, device.
+      placeholder: Xcode 26.0, iOS 26 simulator (iPhone 17)
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or crash report
+      description: Paste any console output or crash backtrace. This will be formatted as code.
+      render: text
+    validations:
+      required: false
