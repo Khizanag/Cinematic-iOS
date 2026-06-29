@@ -45,12 +45,7 @@ extension AppDependencies {
 
     /// `-uiTestMode` keeps UI tests deterministic and offline.
     static func current() -> AppDependencies {
-        #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("-uiTestMode") {
-            return .preview()
-        }
-        #endif
-        return .live()
+        UITestSupport.isActive ? .preview() : .live()
     }
 }
 

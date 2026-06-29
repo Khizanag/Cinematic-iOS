@@ -11,19 +11,20 @@ nonisolated final class CinematicUITests: XCTestCase {
     func testDiscoverToDetailToFavoritesFlow() {
         let app = launchStubbedApp()
 
-        XCTAssertTrue(app.staticTexts["The Silent Voyage"].waitForExistence(timeout: 10))
+        // First test of the run absorbs cold-start render latency on CI.
+        XCTAssertTrue(app.staticTexts["The Silent Voyage"].waitForExistence(timeout: 20))
         app.staticTexts["The Silent Voyage"].firstMatch.tap()
 
         let detail = app.descendants(matching: .any)["movieDetail.container"]
-        XCTAssertTrue(detail.waitForExistence(timeout: 15))
+        XCTAssertTrue(detail.waitForExistence(timeout: 25))
 
         let favorite = app.buttons["Add to Favorites"]
-        XCTAssertTrue(favorite.waitForExistence(timeout: 10))
+        XCTAssertTrue(favorite.waitForExistence(timeout: 15))
         favorite.tap()
 
         app.navigationBars.buttons.firstMatch.tap()
         app.tabBars.buttons["Favorites"].tap()
-        XCTAssertTrue(app.staticTexts["The Silent Voyage"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["The Silent Voyage"].waitForExistence(timeout: 15))
     }
 
     @MainActor
