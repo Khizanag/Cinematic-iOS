@@ -4,6 +4,12 @@
     "accessibility.loading": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird geladen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -15,6 +21,12 @@
     "action.retry": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut versuchen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -26,6 +38,12 @@
     "detail.directedBy %@": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regie: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -37,6 +55,12 @@
     "detail.favorite": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu Favoriten hinzufügen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -48,6 +72,12 @@
     "detail.playTrailer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trailer abspielen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -59,6 +89,12 @@
     "detail.unfavorite": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus Favoriten entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -70,6 +106,12 @@
     "detail.viewInStore": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Store ansehen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -81,6 +123,12 @@
     "discover.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entdecken"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -92,6 +140,12 @@
     "discover.topMovies": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top-Filme"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -103,6 +157,12 @@
     "error.generic": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etwas Unerwartetes ist passiert. Bitte versuche es erneut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -114,6 +174,12 @@
     "error.notFound": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Film wurde nicht gefunden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -125,6 +191,12 @@
     "error.offline": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du scheinst offline zu sein. Prüfe deine Verbindung und versuche es erneut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -136,6 +208,12 @@
     "error.timedOut": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Anfrage hat zu lange gedauert. Versuche es gleich noch einmal."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -147,6 +225,12 @@
     "error.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etwas ist schiefgelaufen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -158,6 +242,12 @@
     "favorites.empty.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe bei einem Film auf das Herz, um ihn hier zu behalten."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -169,6 +259,12 @@
     "favorites.empty.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Favoriten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -180,6 +276,12 @@
     "favorites.remove": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -191,6 +293,12 @@
     "favorites.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favoriten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -202,6 +310,12 @@
     "general.close": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -213,6 +327,12 @@
     "genre.actionAndAdventure": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Action & Abenteuer"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -224,6 +344,12 @@
     "genre.comedy": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Komödie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -235,6 +361,12 @@
     "genre.drama": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drama"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -246,6 +378,12 @@
     "genre.horror": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Horror"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -257,6 +395,12 @@
     "genre.kidsAndFamily": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kinder & Familie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -268,6 +412,12 @@
     "genre.sciFiAndFantasy": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Science-Fiction & Fantasy"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -279,6 +429,12 @@
     "genre.thriller": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thriller"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -290,6 +446,12 @@
     "search.idle.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finde Filme im Katalog nach Titel oder Regie."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -301,6 +463,12 @@
     "search.idle.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katalog durchsuchen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -312,6 +480,12 @@
     "search.prompt": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filme, Regie …"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -323,6 +497,12 @@
     "search.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suche"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -334,6 +514,12 @@
     "trailer.failed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Trailer konnte nicht abgespielt werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -345,6 +531,12 @@
     "trailer.loading": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trailer wird geladen …"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
