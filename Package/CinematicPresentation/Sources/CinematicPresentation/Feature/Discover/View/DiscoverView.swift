@@ -56,6 +56,7 @@ private extension DiscoverView {
             .padding(.vertical, DesignSystem.Spacing.md)
         }
         .accessibilityIdentifier(AccessibilityID.discoverList)
+        .refreshable { await refresh() }
     }
 
     func featuredSection(_ movies: [Movie]) -> some View {
@@ -107,6 +108,17 @@ private extension DiscoverView {
         }
         .buttonStyle(.plain)
         .accessibilityHint(Text("accessibility.opensDetails", bundle: .module))
+    }
+}
+
+// MARK: - Actions
+private extension DiscoverView {
+    /// Bridges the system pull-to-refresh control to the store: dispatch the
+    /// refresh intent, then await the resulting fetch so the spinner stays up
+    /// until fresh content arrives.
+    func refresh() async {
+        store.send(.refresh)
+        await store.settle()
     }
 }
 

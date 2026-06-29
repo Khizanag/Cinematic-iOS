@@ -62,6 +62,36 @@ struct DiscoverReducerTests {
 
         #expect(store.state.catalog == .failed(.offline))
     }
+
+    @Test("Pull-to-refresh keeps content visible while reloading")
+    func refreshKeepsContentAndReloads() async {
+        let store = makeStore()
+        store.send(.task)
+        await store.settle()
+
+        store.send(.refresh)
+        #expect(store.state.isRefreshing)
+        #expect(store.state.catalog.value != nil)
+        await store.settle()
+
+        #expect(!store.state.isRefreshing)
+        #expect(store.state.catalog.value?.featured == PreviewCatalog.movies)
+    }
+
+    @Test("A failed refresh is non-destructive — content is preserved")
+    func failedRefreshKeepsContent() async {
+        let useCase = FetchDiscoverCatalogUseCase(repository: FailingCatalogRepository())
+        let store = Store(
+            initialState: DiscoverReducer.State(catalog: .loaded(PreviewCatalog.discover)),
+            reducer: DiscoverReducer(fetchDiscoverCatalog: useCase),
+        )
+
+        store.send(.refresh)
+        await store.settle()
+
+        #expect(!store.state.isRefreshing)
+        #expect(store.state.catalog == .loaded(PreviewCatalog.discover))
+    }
 }
 
 // MARK: - Helpers
