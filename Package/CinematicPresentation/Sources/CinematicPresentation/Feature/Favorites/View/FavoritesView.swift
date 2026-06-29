@@ -75,6 +75,7 @@ private extension FavoritesView {
             rowContent(movie)
         }
         .buttonStyle(.plain)
+        .accessibilityHint(Text("accessibility.opensDetails", bundle: .module))
         .swipeActions(edge: .trailing) {
             removeAction(movie)
         }

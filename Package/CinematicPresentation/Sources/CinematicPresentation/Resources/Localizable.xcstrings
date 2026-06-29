@@ -18,6 +18,23 @@
         }
       }
     },
+    "accessibility.opensDetails": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnet die Filmdetails"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opens movie details"
+          }
+        }
+      }
+    },
     "action.retry": {
       "extractionState": "manual",
       "localizations": {
