@@ -57,21 +57,26 @@ extension Store {
     }
 }
 
-// MARK: - Test support
+// MARK: - Awaiting effects
 extension Store {
-    public var hasPendingEffects: Bool {
-        !runningEffects.isEmpty
-    }
-
     /// Suspends until every in-flight effect — including effects started by
     /// the intents those effects send — has finished.
     ///
-    /// Intended for tests. Long-lived subscription effects never finish on
-    /// their own; end their source (or cancel them) before settling.
+    /// Bridges the unidirectional loop to APIs that expect an awaitable, most
+    /// notably SwiftUI's `.refreshable`: send a refresh intent, then `await`
+    /// this. Long-lived subscription effects never finish on their own, so do
+    /// not settle a store that owns one — end its source or cancel it first.
     public func settle() async {
         while let effect = runningEffects.values.first {
             await effect.task.value
         }
+    }
+}
+
+// MARK: - Test support
+extension Store {
+    public var hasPendingEffects: Bool {
+        !runningEffects.isEmpty
     }
 }
 
