@@ -138,6 +138,7 @@ Read it all on the **[documentation site](https://khizanag.github.io/Cinematic-i
 | [docs/MVI.md](docs/MVI.md) | Every MVIKit type, effect cancellation, bindings, testing stores |
 | [docs/ADDING-A-FEATURE.md](docs/ADDING-A-FEATURE.md) | The step-by-step recipe, from use case to pushed screen |
 | [docs/TESTING.md](docs/TESTING.md) | What each layer's tests prove and how the doubles work |
+| [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) | The VoiceOver, Dynamic Type, Reduce Motion / Transparency, and localization story |
 
 Each package also carries its own short README.
 
