@@ -80,7 +80,7 @@ The whole machinery is [`MVIKit`](Package/MVIKit) — about 250 lines you can re
 - An offline decorator: `CachedMovieCatalogRepository` wraps the live repository behind the same protocol and serves the last good answer when the network fails.
 - Typed throws end to end: repositories throw `MovieError`, reducers catch `MovieError`, and `LoadingPhase<Value, Never>` proves at compile time that local favorites need no error UI.
 - Honest API work: the iTunes RSS feed wraps every scalar in `{"label": …}`, prefixes keys with `im:`, and ships `entry` as an array, a bare object, or nothing — the DTOs handle all of it, tested.
-- Per-screen skeletons, `ContentUnavailableView` for empty and error states, Dynamic Type, VoiceOver labels, Reduce Motion guards, and a String Catalog per module.
+- Per-screen skeletons, `ContentUnavailableView` for empty and error states, Dynamic Type, VoiceOver labels, Reduce Motion guards, and a String Catalog per module — localized in English and German, with locale-aware price and date formatting.
 - Deep links (`cinematic://movie/<id>`), a coordinator-driven `NavigationStack` per tab, and UI tests that run against an injected in-memory world.
 
 ## How it compares: MVI vs MVVM vs MV vs TCA
