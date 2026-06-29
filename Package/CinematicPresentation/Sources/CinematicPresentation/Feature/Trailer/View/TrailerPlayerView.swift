@@ -87,7 +87,10 @@ private extension TrailerPlayerView {
             Image(systemName: "xmark")
                 .font(DesignSystem.Font.headline)
                 .foregroundStyle(DesignSystem.Color.textPrimary)
-                .padding(DesignSystem.Spacing.sm)
+                .frame(
+                    width: DesignSystem.Size.Button.minimumTapTarget,
+                    height: DesignSystem.Size.Button.minimumTapTarget,
+                )
                 .background(closeButtonBackground, in: .circle)
                 .contentShape(.circle)
         }

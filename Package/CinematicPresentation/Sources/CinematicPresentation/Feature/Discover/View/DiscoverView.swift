@@ -106,6 +106,7 @@ private extension DiscoverView {
             )
         }
         .buttonStyle(.plain)
+        .accessibilityHint(Text("accessibility.opensDetails", bundle: .module))
     }
 }
 
