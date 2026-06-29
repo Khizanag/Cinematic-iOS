@@ -6,6 +6,7 @@ MVI + Clean Architecture for SwiftUI, shown working. Cinematic is a complete mov
 ![Swift 6](https://img.shields.io/badge/Swift-6-F05138)
 ![iOS 26+](https://img.shields.io/badge/iOS-26%2B-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)
+[![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkhizanag.github.io%2FCinematic-iOS%2Fdocs%2Fcoverage.json)](https://github.com/Khizanag/Cinematic-iOS/actions/workflows/ci.yml)
 [![Docs](https://img.shields.io/badge/docs-online-635BF3)](https://khizanag.github.io/Cinematic-iOS/)
 [![GitHub stars](https://img.shields.io/github/stars/Khizanag/Cinematic-iOS?style=social)](https://github.com/Khizanag/Cinematic-iOS/stargazers)
 
