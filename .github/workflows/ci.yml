@@ -70,3 +70,34 @@ jobs:
           -scheme ${{ matrix.scheme }}
           -destination "platform=iOS Simulator,name=${{ steps.simulator.outputs.device }}"
         working-directory: ${{ matrix.scheme == 'Cinematic' && '.' || format('Package/{0}', matrix.scheme) }}
+
+  coverage:
+    name: Coverage badge
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: package-tests
+    runs-on: macos-26
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select latest Xcode 26
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+      - name: Run pure-package tests with coverage
+        run: |
+          for package in MVIKit CinematicDomain CinematicData; do
+            swift test --package-path "Package/$package" --enable-code-coverage
+          done
+      - name: Write coverage badge
+        run: python3 Scripts/coverage-badge.py
+      - name: Commit badge when it changes
+        run: |
+          if git diff --quiet docs/coverage.json; then
+            echo "coverage unchanged"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add docs/coverage.json
+            git commit -m "chore: update coverage badge [skip ci]"
+            git push
+          fi

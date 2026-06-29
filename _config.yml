@@ -35,6 +35,7 @@ exclude:
   - CinematicUITests/
   - Cinematic.xcodeproj/
   - CLAUDE.md
+  - Scripts/
   - "*.xctestplan"
   - vendor/
   - Gemfile
