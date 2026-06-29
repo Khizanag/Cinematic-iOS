@@ -25,6 +25,7 @@ struct CinematicApp: App {
                 .environment(coordinator)
                 .environment(\.dependencies, dependencies)
                 .tint(DesignSystem.Color.accent)
+                .calmForUITests()
                 .onOpenURL { coordinator.handle($0) }
         }
     }
