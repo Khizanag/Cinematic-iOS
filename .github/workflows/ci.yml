@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   ci:
-    uses: Khizanag/ios-toolkit/.github/workflows/ios-ci.yml@v1.1.0
+    uses: Khizanag/iOS-Toolkit/.github/workflows/ios-ci.yml@v1.1.0
     with:
       packages: '["Package/MVIKit", "Package/CinematicDomain", "Package/CinematicData"]'
       xcodebuild: >-

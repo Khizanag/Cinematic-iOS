@@ -18,7 +18,7 @@ build/
 Packages/
 Package.resolved
 
-# SwiftLint's cache of the shared config it fetches from ios-toolkit
+# SwiftLint's cache of the shared config it fetches from iOS-Toolkit
 .swiftlint/RemoteConfigCache
 
 # macOS
