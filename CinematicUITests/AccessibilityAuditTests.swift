@@ -77,11 +77,15 @@ private extension AccessibilityAuditTests {
             .filter { screen.intersects($0) && !screen.contains($0) }
 
         try app.performAccessibilityAudit { issue in
-            guard let frame = issue.element?.frame else { return false }
+            guard let element = issue.element else { return false }
+            let frame = element.frame
             let isFullyVisible = screen.contains(frame)
                 && !cutOffCards.contains { $0.intersects(frame) }
                 && !systemChrome.contains { $0.intersects(frame) }
-            return !isFullyVisible
+            guard isFullyVisible else { return true }
+            // Reported here rather than by the audit, whose message doesn't name the element.
+            XCTFail("\(issue.compactDescription): \(element.elementType) '\(element.label)' at \(frame)")
+            return true
         }
     }
 }
