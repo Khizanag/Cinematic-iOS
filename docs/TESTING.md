@@ -11,7 +11,7 @@ What each layer's tests prove, how the doubles work, and the commands that run e
 | `CinematicComparisonTests` | macOS host | `cd Package/CinematicComparison && swift test` | One search contract held against MV, MVVM and MVI: keystrokes collapse, short queries reset, stale responses are dropped, failures stay typed |
 | `CinematicDesignTests` | iOS simulator | `xcodebuild test -scheme CinematicDesign -destination 'platform=iOS Simulator,name=iPhone 17'` | Token invariants |
 | `CinematicPresentationTests` | iOS simulator | `xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulator,name=iPhone 17'` | Every reducer's state machine, pure and through the live loop |
-| `CinematicTests` + `CinematicUITests` | iOS simulator | `xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'` | Composition wiring, deep-link routing, and three black-box user flows |
+| `CinematicTests` + `CinematicUITests` | iOS simulator | `xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'` | Composition wiring, deep-link routing, three black-box user flows, and an accessibility audit of every screen at the default and largest text sizes |
 
 The split is platform-driven: packages that need neither UIKit nor the iOS-only design system declare macOS support and test in seconds with `swift test`; the rest test on a simulator.
 

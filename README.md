@@ -82,6 +82,7 @@ The whole machinery is [MVIKit](https://github.com/Khizanag/MVIKit) — about 27
 - Typed throws end to end: repositories throw `MovieError`, reducers catch `MovieError`, and `LoadingPhase<Value, Never>` proves at compile time that local favorites need no error UI.
 - Honest API work: the iTunes RSS feed wraps every scalar in `{"label": …}`, prefixes keys with `im:`, and ships `entry` as an array, a bare object, or nothing — the DTOs handle all of it, tested.
 - Per-screen skeletons, `ContentUnavailableView` for empty and error states, Dynamic Type, VoiceOver labels, Reduce Motion guards, and a String Catalog per module — localized in English and German, with locale-aware price and date formatting.
+- An automated accessibility audit of every screen, at the default and the largest text size. Its first run found four real bugs: a tiny hit area, and card and empty-state text that truncated at accessibility sizes.
 - Deep links (`cinematic://movie/<id>`), a coordinator-driven `NavigationStack` per tab, and UI tests that run against an injected in-memory world.
 - Pull-to-refresh modeled as a state distinct from the initial load, so refreshing keeps content on screen instead of flashing skeletons — and a failed refresh is non-destructive.
 
@@ -161,7 +162,7 @@ xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulat
 xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
-Tests cover every seam: reducer state machines, use-case rules, DTO decoding against captured payloads, repository behavior over a stubbed `URLProtocol`, persistence round-trips, composition wiring, and three black-box UI flows. `swiftlint --strict` passes with zero violations.
+Tests cover every seam: reducer state machines, use-case rules, DTO decoding against captured payloads, repository behavior over a stubbed `URLProtocol`, persistence round-trips, composition wiring, three black-box UI flows, and an accessibility audit of every screen at the default and largest text sizes. `swiftlint --strict` passes with zero violations.
 
 ## Contributing
 
