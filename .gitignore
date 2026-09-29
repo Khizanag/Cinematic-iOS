@@ -1,5 +1,12 @@
 # Xcode
-*.xcodeproj/project.xcworkspace/
+# The workspace is Xcode-generated, except the app's package pins, which make
+# every clone and CI run build the same MVIKit.
+*.xcodeproj/project.xcworkspace/*
+!*.xcodeproj/project.xcworkspace/xcshareddata/
+*.xcodeproj/project.xcworkspace/xcshareddata/*
+!*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/*
+!*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
 xcuserdata/
@@ -16,7 +23,7 @@ build/
 .build/
 .swiftpm/
 Packages/
-Package.resolved
+Package/*/Package.resolved
 
 # SwiftLint's cache of the shared config it fetches from iOS-Toolkit
 .swiftlint/RemoteConfigCache

@@ -51,7 +51,7 @@ Full reasoning: `docs/ARCHITECTURE.md`, `docs/MVI.md`. Recipe for new work: `doc
 
 ## Gotchas
 
-- MVIKit changes land in its own repo: fix there, tag a release, then bump the `from:` requirement in `CinematicPresentation/Package.swift` and the project's package reference.
+- MVIKit changes land in its own repo: fix there, tag a release, then bump the `from:` requirement in `CinematicPresentation/Package.swift` and the project's package reference, and commit the regenerated `Cinematic.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved`.
 - `Cinematic/Info.plist` exists only for `CFBundleURLTypes` (the `cinematic://` scheme) and merges over the generated Info.plist; everything else is `INFOPLIST_KEY_*` build settings.
 - The project uses synchronized folders (`objectVersion 77`): adding a file is a filesystem operation, no `.pbxproj` edit. The only membership exception is `Info.plist`.
 - DEBUG launch arguments: `-uiTestMode` swaps the composition root to in-memory doubles; `-deepLink cinematic://movie/<id>` routes at launch (used by the screenshot flow).
