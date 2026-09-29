@@ -42,7 +42,7 @@ Accessibility strings are localized like every other string — hints, labels, a
 
 The audit reads pixels, so it also judges what nobody can see. A row scrolled beneath the floating tab bar reads as low contrast, and a carousel card peeking past the screen edge reads as clipped. The test counts an issue only when its element is fully on screen, outside a cut-off card, and clear of system chrome (the tab bar, the search field, the keyboard), which the app doesn't draw.
 
-Its first run found four real problems, all fixed above: the store link's 18 pt hit area, truncated card titles and captions, a truncated empty-state title, and an empty-state description that only nearly passed contrast.
+Its first runs found five real problems, all fixed: the store link's 18 pt hit area, truncated card titles and captions, a truncated empty-state title, an empty-state description that only nearly passed contrast, and a price VoiceOver read as a bare "$14.99" with no context. The last one surfaced only on CI's older Xcode, whose audit checks differ from newer ones; the test names the failing element, so a CI-only failure is traceable from the log.
 
 Two things it can't judge. A word broken in the middle still counts as fitting, so the card widths are held by `DesignTokenTests` instead. And no audit checks that VoiceOver's reading order makes sense, so that stays a manual pass.
 
