@@ -1,6 +1,7 @@
 # GitHub Pages — turns the README and docs/ into a Google-indexable site.
 # jekyll-seo-tag emits <title>, meta description, Open Graph, Twitter cards,
-# and JSON-LD; jekyll-relative-links rewrites in-repo .md links to .html.
+# and JSON-LD; jekyll-sitemap writes sitemap.xml; jekyll-relative-links
+# rewrites in-repo .md links to .html.
 title: "Cinematic — MVI + Clean Architecture for SwiftUI"
 description: >-
   A complete, documented iOS 26 reference app showing Model-View-Intent and
@@ -15,6 +16,7 @@ twitter:
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
   - jekyll-relative-links
 
 relative_links:
@@ -27,6 +29,12 @@ defaults:
     values:
       layout: default
       image: /docs/og-image.png
+  # The README's H1 would become the home page title and read
+  # "Cinematic | Cinematic — …"; matching the site title makes seo-tag emit it once.
+  - scope:
+      path: "README.md"
+    values:
+      title: "Cinematic — MVI + Clean Architecture for SwiftUI"
 
 exclude:
   - Package/
