@@ -27,6 +27,7 @@ swiftlint lint --strict
 
 cd Package/CinematicDomain && swift test
 cd Package/CinematicData && swift test
+cd Package/CinematicComparison && swift test
 
 xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulator,name=iPhone 17'
 xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'

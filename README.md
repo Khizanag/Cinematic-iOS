@@ -98,6 +98,8 @@ SwiftUI leaves room for several architectures, and the right one depends on how 
 
 `MVIKit` is the smallest thing that makes the MVI guarantees true — read it before reaching for a framework, so you know exactly what a framework would buy you. [docs/MVI.md](docs/MVI.md) goes deep on the reducer, effect cancellation, and testing.
 
+The table is tested, not just asserted: [docs/COMPARISON.md](docs/COMPARISON.md) builds the same search feature as MV, MVVM and MVI, and holds all three to one behavioural test suite. It shows where each architecture keeps its guarantees, and which of them only a UI test can reach.
+
 ## Quick start
 
 ```bash
@@ -126,6 +128,7 @@ Cinematic-iOS/
     CinematicData/            ← iTunes API, DTOs, mappers, caching, persistence
     CinematicDesign/          ← DesignSystem tokens + reusable components
     CinematicPresentation/    ← the four features, one folder each
+    CinematicComparison/      ← Search as MV, MVVM and MVI, one test suite for all
   docs/                       ← the long-form documentation
 ```
 
@@ -139,6 +142,7 @@ Read it all on the **[documentation site](https://khizanag.github.io/Cinematic-i
 | [docs/MVI.md](docs/MVI.md) | Every MVIKit type, effect cancellation, bindings, testing stores |
 | [docs/ADDING-A-FEATURE.md](docs/ADDING-A-FEATURE.md) | The step-by-step recipe, from use case to pushed screen |
 | [docs/TESTING.md](docs/TESTING.md) | What each layer's tests prove and how the doubles work |
+| [docs/COMPARISON.md](docs/COMPARISON.md) | One feature as MV, MVVM and MVI, held to the same tests |
 | [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) | The VoiceOver, Dynamic Type, Reduce Motion / Transparency, and localization story |
 
 Each package also carries its own short README.
@@ -149,6 +153,7 @@ Each package also carries its own short README.
 # Platform-agnostic packages — run anywhere, no simulator
 cd Package/CinematicDomain && swift test
 cd Package/CinematicData && swift test
+cd Package/CinematicComparison && swift test
 
 # UI packages and the app — run on an iOS 26 simulator
 xcodebuild test -scheme CinematicDesign -destination 'platform=iOS Simulator,name=iPhone 17'

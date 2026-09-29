@@ -15,6 +15,7 @@ swiftlint lint --strict
 # Pure packages (fast, no simulator)
 cd Package/CinematicDomain && swift test
 cd Package/CinematicData && swift test
+cd Package/CinematicComparison && swift test
 
 # UI packages + app (iOS 26 simulator required)
 xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulator,name=iPhone 17'
@@ -34,13 +35,14 @@ There is no workspace — always build with `-project` (or from a package direct
 | Design system | `Package/CinematicDesign` | nothing |
 | Features | `Package/CinematicPresentation` | Domain, MVIKit, Design |
 | Composition + navigation | `Cinematic/` (app target) | everything |
+| Architecture comparison | `Package/CinematicComparison` (not linked by the app) | Domain, MVIKit |
 
 Full reasoning: `docs/ARCHITECTURE.md`, `docs/MVI.md`. Recipe for new work: `docs/ADDING-A-FEATURE.md`.
 
 ## Hard rules
 
 - The dependency rule is enforced by package manifests — never add `CinematicData` to the presentation package, or any new inward-pointing arrow.
-- State changes only inside a `reduce` function. Async work is an `Effect`; results come back as intents.
+- State changes only inside a `reduce` function. Async work is an `Effect`; results come back as intents. This binds the app's packages; `CinematicComparison`'s MV and MVVM variants break it on purpose.
 - Never `NavigationLink` — destinations are `Screen`/`Sheet`/`Cover` cases routed by factories through the coordinators. Feature views emit closures, never navigate.
 - Every visual value comes from a `DesignSystem.*` token; no hardcoded fonts, colors, spacings, or sizes.
 - No user-facing string literals in feature code — String Catalog keys per module (`bundle: .module`).
@@ -55,4 +57,5 @@ Full reasoning: `docs/ARCHITECTURE.md`, `docs/MVI.md`. Recipe for new work: `doc
 - `Cinematic/Info.plist` exists only for `CFBundleURLTypes` (the `cinematic://` scheme) and merges over the generated Info.plist; everything else is `INFOPLIST_KEY_*` build settings.
 - The project uses synchronized folders (`objectVersion 77`): adding a file is a filesystem operation, no `.pbxproj` edit. The only membership exception is `Info.plist`.
 - DEBUG launch arguments: `-uiTestMode` swaps the composition root to in-memory doubles; `-deepLink cinematic://movie/<id>` routes at launch (used by the screenshot flow).
+- `CinematicComparison` mirrors the app's Search in MV, MVVM and MVI. `docs/COMPARISON.md` quotes its code and line counts, so change them together.
 - The iTunes feeds have no text search — `searchMovies` filters a briefly cached full catalog inside the data layer. Don't "fix" callers around it.

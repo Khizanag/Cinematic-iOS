@@ -8,11 +8,12 @@ What each layer's tests prove, how the doubles work, and the commands that run e
 |---|---|---|---|
 | `CinematicDomainTests` | macOS host | `cd Package/CinematicDomain && swift test` | Business rules: genre ordering and degradation, query hygiene, snapshot-then-changes streaming |
 | `CinematicDataTests` | macOS host | `cd Package/CinematicData && swift test` | Wire truth: DTO decoding against captured payloads, error mapping per status and `URLError`, local search ranking, cache fallback, persistence round-trips |
+| `CinematicComparisonTests` | macOS host | `cd Package/CinematicComparison && swift test` | One search contract held against MV, MVVM and MVI: keystrokes collapse, short queries reset, stale responses are dropped, failures stay typed |
 | `CinematicDesignTests` | iOS simulator | `xcodebuild test -scheme CinematicDesign -destination 'platform=iOS Simulator,name=iPhone 17'` | Token invariants |
 | `CinematicPresentationTests` | iOS simulator | `xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulator,name=iPhone 17'` | Every reducer's state machine, pure and through the live loop |
 | `CinematicTests` + `CinematicUITests` | iOS simulator | `xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'` | Composition wiring, deep-link routing, and three black-box user flows |
 
-The split is platform-driven: packages that never import UIKit or SwiftUI declare macOS support and test in seconds with `swift test`; UI packages test on a simulator.
+The split is platform-driven: packages that need neither UIKit nor the iOS-only design system declare macOS support and test in seconds with `swift test`; the rest test on a simulator.
 
 The MVI loop itself (effects feeding back, switch-latest cancellation, `cancel`, bindings, `settle`) is tested where it lives, in the [MVIKit repository](https://github.com/Khizanag/MVIKit).
 

@@ -14,7 +14,7 @@ jobs:
   ci:
     uses: Khizanag/iOS-Toolkit/.github/workflows/ios-ci.yml@v1.1.0
     with:
-      packages: '["Package/CinematicDomain", "Package/CinematicData"]'
+      packages: '["Package/CinematicDomain", "Package/CinematicData", "Package/CinematicComparison"]'
       xcodebuild: >-
         [{"name": "CinematicDesign (simulator)", "scheme": "CinematicDesign", "directory": "Package/CinematicDesign"},
          {"name": "CinematicPresentation (simulator)", "scheme": "CinematicPresentation", "directory": "Package/CinematicPresentation"},
