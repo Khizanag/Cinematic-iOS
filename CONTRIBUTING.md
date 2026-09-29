@@ -4,6 +4,7 @@ Thanks for your interest. Cinematic is a teaching reference, so contributions ar
 
 ## Ways to help
 
+- **Ask a question** in [Discussions](https://github.com/Khizanag/Cinematic-iOS/discussions/categories/q-a) — "why is it built this way?" is welcome.
 - **Report a bug** or **request a feature** through the issue templates.
 - **Improve the docs** — a confusing paragraph in `docs/` is a real bug here.
 - **Send a pull request** for a fix or a focused improvement.
