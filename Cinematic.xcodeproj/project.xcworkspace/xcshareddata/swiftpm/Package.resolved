@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Khizanag/MVIKit",
       "state" : {
-        "revision" : "27fb9a7f88e285336337c8a88ab717f167618c21",
-        "version" : "1.0.0"
+        "revision" : "c5a0ebbaebb1fe9425ec600e253f2c4115b51da0",
+        "version" : "1.0.1"
       }
     }
   ],

@@ -4,7 +4,7 @@ Guidance for AI assistants and contributors working in this repository.
 
 ## What this is
 
-Cinematic — a reference implementation of MVI + Clean Architecture in SwiftUI. iOS 26+, Swift 6, four local Swift packages under `Package/` plus the MVIKit package (`github.com/Khizanag/MVIKit`, pinned `from: 1.0.0`), app target as composition root. The codebase is the documentation's proof: keep them in sync.
+Cinematic — a reference implementation of MVI + Clean Architecture in SwiftUI. iOS 26+, Swift 6, four local Swift packages under `Package/` plus the MVIKit package (`github.com/Khizanag/MVIKit`, pinned `from: 1.0.1`), app target as composition root. The codebase is the documentation's proof: keep them in sync.
 
 ## Commands
 
