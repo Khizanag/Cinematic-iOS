@@ -4,6 +4,8 @@ import SwiftUI
 /// Mirrors the loaded discover layout, so content replaces placeholders
 /// without the page jumping.
 struct DiscoverSkeleton: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: DesignSystem.Spacing.lg) {
@@ -22,7 +24,8 @@ struct DiscoverSkeleton: View {
 // MARK: - Sub-views
 private extension DiscoverSkeleton {
     func section(posterWidth: CGFloat) -> some View {
-        VStack(alignment: .leading, spacing: DesignSystem.Spacing.sm) {
+        let cardWidth = DesignSystem.Size.Poster.card(posterWidth, at: dynamicTypeSize)
+        return VStack(alignment: .leading, spacing: DesignSystem.Spacing.sm) {
             SkeletonView(cornerRadius: DesignSystem.CornerRadius.sm)
                 .frame(
                     width: DesignSystem.Size.Poster.row,
@@ -32,8 +35,8 @@ private extension DiscoverSkeleton {
                 ForEach(0..<4, id: \.self) { _ in
                     SkeletonView()
                         .frame(
-                            width: posterWidth,
-                            height: posterWidth * PosterImage.heightToWidthRatio,
+                            width: cardWidth,
+                            height: cardWidth * PosterImage.heightToWidthRatio,
                         )
                 }
             }

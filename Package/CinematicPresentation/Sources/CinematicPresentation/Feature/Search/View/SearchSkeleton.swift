@@ -3,6 +3,8 @@ import SwiftUI
 
 /// Mirrors the results grid while a search is in flight.
 struct SearchSkeleton: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: DesignSystem.Spacing.md) {
@@ -23,7 +25,7 @@ private extension SearchSkeleton {
     var columns: [GridItem] {
         [
             GridItem(
-                .adaptive(minimum: DesignSystem.Size.Poster.row),
+                .adaptive(minimum: DesignSystem.Size.Poster.card(DesignSystem.Size.Poster.row, at: dynamicTypeSize)),
                 spacing: DesignSystem.Spacing.md,
             ),
         ]

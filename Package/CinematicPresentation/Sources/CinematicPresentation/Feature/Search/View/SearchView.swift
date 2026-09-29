@@ -5,6 +5,8 @@ import SwiftUI
 
 /// Catalog search with native `searchable`, debounced through the reducer.
 public struct SearchView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     private let onSelectMovie: (Movie) -> Void
 
     @State private var store: Store<SearchReducer>
@@ -48,12 +50,15 @@ private extension SearchView {
 
     var idleState: some View {
         ContentUnavailableView {
-            Label(
-                String(localized: "search.idle.title", bundle: .module),
-                systemImage: "movieclapper",
-            )
+            Label {
+                Text("search.idle.title", bundle: .module)
+                    .unavailableTitle()
+            } icon: {
+                Image(systemName: "movieclapper")
+            }
         } description: {
             Text("search.idle.description", bundle: .module)
+                .unavailableDescription()
         }
     }
 
@@ -77,7 +82,7 @@ private extension SearchView {
                 title: movie.title,
                 caption: movie.directorName,
                 posterURL: movie.posterURL,
-                width: DesignSystem.Size.Poster.row,
+                width: cardWidth,
             )
         }
         .buttonStyle(.plain)
@@ -91,10 +96,14 @@ private extension SearchView {
         store.binding(\.query) { .queryChanged($0) }
     }
 
+    var cardWidth: CGFloat {
+        DesignSystem.Size.Poster.card(DesignSystem.Size.Poster.row, at: dynamicTypeSize)
+    }
+
     var columns: [GridItem] {
         [
             GridItem(
-                .adaptive(minimum: DesignSystem.Size.Poster.row),
+                .adaptive(minimum: cardWidth),
                 spacing: DesignSystem.Spacing.md,
             ),
         ]

@@ -158,6 +158,8 @@ private extension MovieDetailView {
                     } icon: {
                         Image(systemName: "arrow.up.right.square")
                     }
+                    .frame(minHeight: DesignSystem.Size.Button.minimumTapTarget)
+                    .contentShape(.rect)
                 }
                 .font(DesignSystem.Font.subheadline)
             }

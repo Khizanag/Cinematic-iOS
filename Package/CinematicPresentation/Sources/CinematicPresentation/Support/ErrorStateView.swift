@@ -9,12 +9,15 @@ struct ErrorStateView: View {
 
     var body: some View {
         ContentUnavailableView {
-            Label(
-                String(localized: "error.title", bundle: .module),
-                systemImage: error.symbolName,
-            )
+            Label {
+                Text("error.title", bundle: .module)
+                    .unavailableTitle()
+            } icon: {
+                Image(systemName: error.symbolName)
+            }
         } description: {
             Text(error.userMessage)
+                .unavailableDescription()
         } actions: {
             Button(String(localized: "action.retry", bundle: .module), action: retry)
                 .buttonStyle(.borderedProminent)

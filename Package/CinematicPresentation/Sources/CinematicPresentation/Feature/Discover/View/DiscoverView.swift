@@ -8,6 +8,8 @@ import SwiftUI
 /// Navigation-agnostic by design — it reports selection through
 /// `onSelectMovie` and the composition root decides where that leads.
 public struct DiscoverView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     private let onSelectMovie: (Movie) -> Void
 
     @State private var store: Store<DiscoverReducer>
@@ -84,10 +86,11 @@ private extension DiscoverView {
     }
 
     func posterRow(_ movies: [Movie], posterWidth: CGFloat) -> some View {
-        ScrollView(.horizontal) {
+        let cardWidth = DesignSystem.Size.Poster.card(posterWidth, at: dynamicTypeSize)
+        return ScrollView(.horizontal) {
             LazyHStack(alignment: .top, spacing: DesignSystem.Spacing.sm) {
                 ForEach(movies) { movie in
-                    movieButton(movie, posterWidth: posterWidth)
+                    movieButton(movie, posterWidth: cardWidth)
                 }
             }
             .padding(.horizontal, DesignSystem.Spacing.md)

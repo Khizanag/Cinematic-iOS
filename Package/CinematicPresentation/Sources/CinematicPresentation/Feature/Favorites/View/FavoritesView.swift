@@ -48,12 +48,15 @@ private extension FavoritesView {
 
     var emptyState: some View {
         ContentUnavailableView {
-            Label(
-                String(localized: "favorites.empty.title", bundle: .module),
-                systemImage: "heart",
-            )
+            Label {
+                Text("favorites.empty.title", bundle: .module)
+                    .unavailableTitle()
+            } icon: {
+                Image(systemName: "heart")
+            }
         } description: {
             Text("favorites.empty.description", bundle: .module)
+                .unavailableDescription()
         }
     }
 

@@ -4,6 +4,8 @@ import SwiftUI
 /// Poster, title, and an optional caption — the unit of every carousel and
 /// grid. Reads as one element to VoiceOver.
 public struct MovieCard: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     private let title: String
     private let caption: String?
     private let posterURL: URL?
@@ -34,14 +36,28 @@ private extension MovieCard {
             Text(title)
                 .font(DesignSystem.Font.headline)
                 .foregroundStyle(DesignSystem.Color.textPrimary)
-                .lineLimit(2, reservesSpace: true)
+                .lineLimit(titleLineLimit, reservesSpace: !dynamicTypeSize.isAccessibilitySize)
                 .multilineTextAlignment(.leading)
             if let caption {
                 Text(caption)
                     .font(DesignSystem.Font.caption)
                     .foregroundStyle(DesignSystem.Color.textSecondary)
-                    .lineLimit(1)
+                    .lineLimit(captionLineLimit)
             }
         }
+    }
+}
+
+// MARK: - Helpers
+private extension MovieCard {
+    // Cards keep a fixed width, so accessibility sizes wrap onto more lines
+    // instead of truncating. Only the regular sizes reserve the two-line
+    // height that keeps a carousel's cards aligned.
+    var titleLineLimit: Int {
+        dynamicTypeSize.isAccessibilitySize ? 5 : 2
+    }
+
+    var captionLineLimit: Int {
+        dynamicTypeSize.isAccessibilitySize ? 3 : 1
     }
 }
