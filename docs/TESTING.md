@@ -6,7 +6,6 @@ What each layer's tests prove, how the doubles work, and the commands that run e
 
 | Suite | Runs on | Command | Proves |
 |---|---|---|---|
-| `MVIKitTests` | macOS host | `cd Package/MVIKit && swift test` | The loop itself: effects feed back, identified effects switch-latest, `cancel` stops work, bindings round-trip |
 | `CinematicDomainTests` | macOS host | `cd Package/CinematicDomain && swift test` | Business rules: genre ordering and degradation, query hygiene, snapshot-then-changes streaming |
 | `CinematicDataTests` | macOS host | `cd Package/CinematicData && swift test` | Wire truth: DTO decoding against captured payloads, error mapping per status and `URLError`, local search ranking, cache fallback, persistence round-trips |
 | `CinematicDesignTests` | iOS simulator | `xcodebuild test -scheme CinematicDesign -destination 'platform=iOS Simulator,name=iPhone 17'` | Token invariants |
@@ -14,6 +13,8 @@ What each layer's tests prove, how the doubles work, and the commands that run e
 | `CinematicTests` + `CinematicUITests` | iOS simulator | `xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'` | Composition wiring, deep-link routing, and three black-box user flows |
 
 The split is platform-driven: packages that never import UIKit or SwiftUI declare macOS support and test in seconds with `swift test`; UI packages test on a simulator.
+
+The MVI loop itself (effects feeding back, switch-latest cancellation, `cancel`, bindings, `settle`) is tested where it lives, in the [MVIKit repository](https://github.com/Khizanag/MVIKit).
 
 ## Doubles, by layer
 

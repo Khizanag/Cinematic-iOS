@@ -24,7 +24,6 @@ A change is ready when all of these pass:
 ```bash
 swiftlint lint --strict
 
-cd Package/MVIKit && swift test
 cd Package/CinematicDomain && swift test
 cd Package/CinematicData && swift test
 

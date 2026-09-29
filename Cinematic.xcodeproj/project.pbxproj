@@ -231,7 +231,7 @@
 			mainGroup = CA11A11C0000000000000002;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				CA11A11C0000000000000051 /* XCLocalSwiftPackageReference "Package/MVIKit" */,
+				CA11A11C0000000000000051 /* XCRemoteSwiftPackageReference "MVIKit" */,
 				CA11A11C0000000000000052 /* XCLocalSwiftPackageReference "Package/CinematicDomain" */,
 				CA11A11C0000000000000053 /* XCLocalSwiftPackageReference "Package/CinematicData" */,
 				CA11A11C0000000000000054 /* XCLocalSwiftPackageReference "Package/CinematicDesign" */,
@@ -624,10 +624,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		CA11A11C0000000000000051 /* XCLocalSwiftPackageReference "Package/MVIKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Package/MVIKit;
-		};
 		CA11A11C0000000000000052 /* XCLocalSwiftPackageReference "Package/CinematicDomain" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Package/CinematicDomain;
@@ -646,10 +642,21 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		CA11A11C0000000000000051 /* XCRemoteSwiftPackageReference "MVIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Khizanag/MVIKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		CA11A11C0000000000000061 /* MVIKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CA11A11C0000000000000051 /* XCLocalSwiftPackageReference "Package/MVIKit" */;
+			package = CA11A11C0000000000000051 /* XCRemoteSwiftPackageReference "MVIKit" */;
 			productName = MVIKit;
 		};
 		CA11A11C0000000000000062 /* CinematicDomain */ = {

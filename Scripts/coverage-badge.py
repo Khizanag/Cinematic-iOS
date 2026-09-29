@@ -13,7 +13,7 @@ import json
 import subprocess
 import sys
 
-PACKAGES = ["MVIKit", "CinematicDomain", "CinematicData"]
+PACKAGES = ["CinematicDomain", "CinematicData"]
 
 
 def color(pct: int) -> str:

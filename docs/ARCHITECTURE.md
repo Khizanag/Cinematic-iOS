@@ -8,7 +8,7 @@ Clean Architecture reduces to one sentence: source-code dependencies point only 
 
 | Layer | Package | May import | Holds |
 |---|---|---|---|
-| Pattern | `MVIKit` | nothing | `Store`, `Reducer`, `Effect`, `Send`, `LoadingPhase` |
+| Pattern | [`MVIKit`](https://github.com/Khizanag/MVIKit) | nothing | `Store`, `Reducer`, `Effect`, `Send`, `LoadingPhase` |
 | Domain | `CinematicDomain` | nothing | Entities, use cases, repository protocols, `MovieError` |
 | Data | `CinematicData` | Domain | `APIClient`, DTOs, mappers, repositories, caching |
 | Design | `CinematicDesign` | nothing | `DesignSystem` tokens, reusable components |
@@ -92,7 +92,7 @@ The isolation story is deliberate and layered:
 
 **Why five packages instead of folders?** Folders ask politely; manifests enforce. The compiler rejecting `import CinematicData` inside a reducer is the entire point.
 
-**Why does `MVIKit` not depend on the app at all?** It is the reusable pattern, not the app. Copy the package into another project and it works unchanged.
+**Why does `MVIKit` not depend on the app at all?** It is the reusable pattern, not the app — so it lives in [its own repository](https://github.com/Khizanag/MVIKit) and Cinematic consumes it like any other app would, by version.
 
 **Where are the view models?** There are none. The `Store` + `Reducer` pair plays that role with a stricter contract: state only changes in `reduce`, and every change has a named cause.
 

@@ -17,7 +17,7 @@ let package = Package(
     dependencies: [
         .package(path: "../CinematicDesign"),
         .package(path: "../CinematicDomain"),
-        .package(path: "../MVIKit"),
+        .package(url: "https://github.com/Khizanag/MVIKit", from: "1.0.0"),
     ],
     targets: [
         .target(

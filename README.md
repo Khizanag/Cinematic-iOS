@@ -72,7 +72,7 @@ flowchart LR
 - **Reducer** — the only place state changes. Pure, synchronous, returns an `Effect` describing async work.
 - **Store** — runs the loop, executes effects, and is the only object a view talks to.
 
-The whole machinery is [`MVIKit`](Package/MVIKit) — about 250 lines you can read top to bottom. [docs/MVI.md](docs/MVI.md) walks through every type.
+The whole machinery is [MVIKit](https://github.com/Khizanag/MVIKit) — about 270 lines you can read top to bottom, published as its own package so you can use it in your app too. [docs/MVI.md](docs/MVI.md) walks through every type.
 
 ## What it demonstrates
 
@@ -122,7 +122,6 @@ Cinematic-iOS/
   CinematicTests/             ← composition + deep-link tests
   CinematicUITests/           ← XCUITest flows over the stubbed world
   Package/
-    MVIKit/                   ← the pattern: Store, Reducer, Effect, LoadingPhase
     CinematicDomain/          ← entities, use cases, repository contracts
     CinematicData/            ← iTunes API, DTOs, mappers, caching, persistence
     CinematicDesign/          ← DesignSystem tokens + reusable components
@@ -148,7 +147,6 @@ Each package also carries its own short README.
 
 ```bash
 # Platform-agnostic packages — run anywhere, no simulator
-cd Package/MVIKit && swift test
 cd Package/CinematicDomain && swift test
 cd Package/CinematicData && swift test
 
@@ -158,7 +156,7 @@ xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulat
 xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
-79 tests across six suites: reducer state machines, use-case rules, DTO decoding against captured payloads, repository behavior over a stubbed `URLProtocol`, persistence round-trips, composition wiring, and three black-box UI flows. `swiftlint --strict` passes with zero violations.
+Tests cover every seam: reducer state machines, use-case rules, DTO decoding against captured payloads, repository behavior over a stubbed `URLProtocol`, persistence round-trips, composition wiring, and three black-box UI flows. `swiftlint --strict` passes with zero violations.
 
 ## Contributing
 

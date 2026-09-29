@@ -1,6 +1,6 @@
 # MVI in this codebase
 
-Model–View–Intent, as implemented by `MVIKit` and used by every feature. This is the long-form chapter: read it next to the package source — the whole pattern is about 250 lines.
+Model–View–Intent, as implemented by `MVIKit` and used by every feature. This is the long-form chapter: read it next to [the package source](https://github.com/Khizanag/MVIKit) — the whole pattern is about 270 lines.
 
 ## The idea
 
@@ -154,7 +154,7 @@ Stream-fed stores never settle (their effect is deliberately immortal), so those
 | Races, cancellation, multi-source state, audit-ability | MVI — this repo's territory |
 | Many teams, deep feature composition, exhaustive exhaustiveness | TCA — same ideas, industrial tooling |
 
-MVIKit is intentionally the smallest thing that makes the MVI claims true. If you outgrow it, you'll know exactly what you are buying from a framework — because you've read the 250 lines it replaces.
+MVIKit is intentionally the smallest thing that makes the MVI claims true. If you outgrow it, you'll know exactly what you are buying from a framework — because you've read the 270 lines it replaces.
 
 ## Anti-patterns to refuse
 
