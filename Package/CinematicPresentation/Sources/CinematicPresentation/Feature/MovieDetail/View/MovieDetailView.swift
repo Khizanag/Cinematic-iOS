@@ -146,7 +146,7 @@ private extension MovieDetailView {
     func footer(_ details: MovieDetails) -> some View {
         HStack(spacing: DesignSystem.Spacing.md) {
             if let price = details.movie.formattedPrice {
-                Text(price)
+                Text("detail.price \(price)", bundle: .module)
                     .font(DesignSystem.Font.callout)
                     .foregroundStyle(DesignSystem.Color.textSecondary)
             }

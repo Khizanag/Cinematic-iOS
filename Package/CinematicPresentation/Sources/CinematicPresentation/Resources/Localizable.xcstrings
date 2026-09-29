@@ -103,6 +103,23 @@
         }
       }
     },
+    "detail.price %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preis: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Price: %@"
+          }
+        }
+      }
+    },
     "detail.unfavorite": {
       "extractionState": "manual",
       "localizations": {
