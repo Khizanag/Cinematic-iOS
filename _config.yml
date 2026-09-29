@@ -2,7 +2,9 @@
 # jekyll-seo-tag emits <title>, meta description, Open Graph, Twitter cards,
 # and JSON-LD; jekyll-sitemap writes sitemap.xml; jekyll-relative-links
 # rewrites in-repo .md links to .html.
-title: "Cinematic — MVI + Clean Architecture for SwiftUI"
+# seo-tag titles pages "<page> | Cinematic" and the home page "Cinematic | <tagline>".
+title: Cinematic
+tagline: MVI + Clean Architecture for SwiftUI
 description: >-
   A complete, documented iOS 26 reference app showing Model-View-Intent and
   Clean Architecture in Swift 6 with SwiftUI. Unidirectional data flow, modular
@@ -29,12 +31,6 @@ defaults:
     values:
       layout: default
       image: /docs/og-image.png
-  # The README's H1 would become the home page title and read
-  # "Cinematic | Cinematic — …"; matching the site title makes seo-tag emit it once.
-  - scope:
-      path: "README.md"
-    values:
-      title: "Cinematic — MVI + Clean Architecture for SwiftUI"
 
 exclude:
   - Package/
