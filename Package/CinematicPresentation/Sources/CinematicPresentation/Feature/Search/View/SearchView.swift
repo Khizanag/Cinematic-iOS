@@ -87,6 +87,7 @@ private extension SearchView {
         }
         .buttonStyle(.plain)
         .accessibilityHint(Text("accessibility.opensDetails", bundle: .module))
+        .accessibilityIdentifier(AccessibilityID.movieCard)
     }
 }
 

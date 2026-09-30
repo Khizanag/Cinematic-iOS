@@ -5,4 +5,5 @@ public enum AccessibilityID {
     public static let searchResults = "search.results"
     public static let favoritesList = "favorites.list"
     public static let movieDetail = "movieDetail.container"
+    public static let movieCard = "movie.card"
 }

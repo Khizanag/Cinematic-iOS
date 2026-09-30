@@ -9,6 +9,7 @@ struct AccessibilityIDTests {
             AccessibilityID.searchResults,
             AccessibilityID.favoritesList,
             AccessibilityID.movieDetail,
+            AccessibilityID.movieCard,
         ]
         #expect(Set(ids).count == ids.count)
     }
