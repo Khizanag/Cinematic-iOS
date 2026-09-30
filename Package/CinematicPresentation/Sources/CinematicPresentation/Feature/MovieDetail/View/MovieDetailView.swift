@@ -84,6 +84,8 @@ private extension MovieDetailView {
                 footer(details)
             }
             .padding(DesignSystem.Spacing.md)
+            .frame(maxWidth: DesignSystem.Size.Content.readableWidth)
+            .frame(maxWidth: .infinity)
         }
         .accessibilityIdentifier(AccessibilityID.movieDetail)
     }

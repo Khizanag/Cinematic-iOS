@@ -21,6 +21,13 @@ extension DesignSystem {
             public static let featured: CGFloat = 200
         }
 
+        /// Column widths for long-form content.
+        public enum Content {
+            /// Caps a text column on wide screens such as iPad, where full-width
+            /// body text runs past 150 characters a line.
+            public static let readableWidth: CGFloat = 680
+        }
+
         /// Block heights for skeleton placeholders.
         public enum Skeleton {
             public static let header: CGFloat = 22

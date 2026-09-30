@@ -11,6 +11,8 @@ struct MovieDetailSkeleton: View {
                 summaryLines
             }
             .padding(DesignSystem.Spacing.md)
+            .frame(maxWidth: DesignSystem.Size.Content.readableWidth)
+            .frame(maxWidth: .infinity)
         }
         .scrollDisabled(true)
         .accessibilityElement()
