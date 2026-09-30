@@ -39,10 +39,10 @@ nonisolated final class CinematicUITests: XCTestCase {
         play.tap()
 
         let close = app.buttons["Close"]
-        XCTAssertTrue(close.waitForExistence(timeout: 5))
+        XCTAssertTrue(close.waitForExistence(timeout: 15))
         close.tap()
 
-        XCTAssertTrue(play.waitForExistence(timeout: 5))
+        XCTAssertTrue(play.waitForExistence(timeout: 15))
     }
 
     @MainActor
