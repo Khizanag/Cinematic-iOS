@@ -14,6 +14,12 @@ MVI + Clean Architecture for SwiftUI, shown working. Cinematic is a complete mov
 |---|---|---|---|
 | ![Discover screen, light mode](docs/screenshots/discover-light.png) | ![Movie detail screen, light mode](docs/screenshots/detail-light.png) | ![Discover screen, dark mode](docs/screenshots/discover-dark.png) | ![Movie detail screen, dark mode](docs/screenshots/detail-dark.png) |
 
+On iPad, the tab bar can become a sidebar and the detail screen keeps its text to a readable column:
+
+| Discover, iPad | Movie detail, iPad |
+|---|---|
+| ![Discover screen on iPad](docs/screenshots/ipad-discover.png) | ![Movie detail screen on iPad](docs/screenshots/ipad-detail.png) |
+
 No API keys, no accounts, no setup. Clone, open, run — the catalog comes from Apple's public iTunes feeds.
 
 **[Read the full walkthrough on the documentation site →](https://khizanag.github.io/Cinematic-iOS/)**
