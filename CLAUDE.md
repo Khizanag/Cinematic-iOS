@@ -47,7 +47,7 @@ Full reasoning: `docs/ARCHITECTURE.md`, `docs/MVI.md`. Recipe for new work: `doc
 - Every visual value comes from a `DesignSystem.*` token; no hardcoded fonts, colors, spacings, or sizes.
 - No user-facing string literals in feature code — String Catalog keys per module (`bundle: .module`).
 - Loading UI is a per-screen skeleton mirroring the loaded layout; empty and error states use `ContentUnavailableView`.
-- Swift Testing for unit tests; XCTest only in `CinematicUITests`.
+- Swift Testing for every test Xcode allows it in; XCTest only in `CinematicUITests`, because a UI test target can't import `Testing` (the build fails on `_Testing_Unavailable`).
 - `swiftlint lint --strict` and a zero-warning build gate every commit. Fix causes, never bypass.
 - Commits: imperative subject under 72 characters with a type prefix (`feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`, `ci:`). No AI attribution of any kind.
 
