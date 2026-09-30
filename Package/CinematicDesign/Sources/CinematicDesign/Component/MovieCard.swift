@@ -36,28 +36,27 @@ private extension MovieCard {
             Text(title)
                 .font(DesignSystem.Font.headline)
                 .foregroundStyle(DesignSystem.Color.textPrimary)
-                .lineLimit(titleLineLimit, reservesSpace: !dynamicTypeSize.isAccessibilitySize)
+                .lineLimit(titleLineLimit, reservesSpace: true)
                 .multilineTextAlignment(.leading)
-            if let caption {
-                Text(caption)
-                    .font(DesignSystem.Font.caption)
-                    .foregroundStyle(DesignSystem.Color.textSecondary)
-                    .lineLimit(captionLineLimit)
-            }
+            Text(caption ?? "")
+                .font(DesignSystem.Font.caption)
+                .foregroundStyle(DesignSystem.Color.textSecondary)
+                .lineLimit(captionLineLimit, reservesSpace: true)
         }
     }
 }
 
 // MARK: - Helpers
 private extension MovieCard {
-    // Cards keep a fixed width, so accessibility sizes wrap onto more lines
-    // instead of truncating. Only the regular sizes reserve the two-line
-    // height that keeps a carousel's cards aligned.
+    // Every card in a row reserves the same text height, even without a
+    // caption. A lazy carousel sizes its row from the first card it lays out,
+    // so a taller card after it would be squeezed and its text cut short.
+    // Accessibility sizes reserve more lines, since cards keep a fixed width.
     var titleLineLimit: Int {
-        dynamicTypeSize.isAccessibilitySize ? 5 : 2
+        dynamicTypeSize.isAccessibilitySize ? 3 : 2
     }
 
     var captionLineLimit: Int {
-        dynamicTypeSize.isAccessibilitySize ? 3 : 1
+        dynamicTypeSize.isAccessibilitySize ? 2 : 1
     }
 }

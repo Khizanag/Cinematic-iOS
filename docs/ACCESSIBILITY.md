@@ -17,7 +17,7 @@ All text uses `DesignSystem.Font.*`, which maps to the system text styles (`.bod
 Text that scales still needs room to land. At accessibility sizes a single word such as "Silent" is wider than a 110 pt card, so:
 
 - **Cards widen.** `DesignSystem.Size.Poster.card(_:at:)` returns at least `accessibilityCard` (280 pt) at accessibility sizes. Discover's rows, the search grid and their skeletons all size from it, so titles wrap between words instead of inside them.
-- **Card text gets more lines.** `MovieCard` allows five title lines and three caption lines at accessibility sizes, and drops the reserved two-line height that keeps a carousel aligned at regular sizes.
+- **Every card reserves the same text height.** `MovieCard` reserves two title lines and one caption line at regular sizes, and three and two at accessibility sizes, even when a card has no caption. A lazy carousel sizes its row from the first card it lays out, so a taller card after it would otherwise be squeezed and cut short. At regular sizes a longer title truncates by design: VoiceOver reads the whole title and the detail screen shows it.
 - **Empty and error titles wrap.** `ContentUnavailableView` truncates its title to one line. `unavailableTitle()` lets it wrap, and `unavailableDescription()` draws the description in `DesignSystem.Color.textSecondary`, which meets contrast where the view's default gray only nearly does.
 
 ## Reduce Motion
@@ -43,6 +43,8 @@ Accessibility strings are localized like every other string — hints, labels, a
 The audit reads pixels, so it also judges what nobody can see. A row scrolled beneath the floating tab bar reads as low contrast, and a carousel card peeking past the screen edge reads as clipped. The test counts an issue only when its element is fully on screen, outside a cut-off card, and clear of system chrome (the tab bar, the search field, the keyboard), which the app doesn't draw.
 
 Its first runs found five real problems, all fixed: the store link's 18 pt hit area, truncated card titles and captions, a truncated empty-state title, an empty-state description that only nearly passed contrast, and a price VoiceOver read as a bare "$14.99" with no context. The last one surfaced only on CI's older Xcode, whose audit checks differ from newer ones; the test names the failing element, so a CI-only failure is traceable from the log.
+
+CI runs the audit on iPhone. Run locally on iPad, it found the squeezed cards above, which on iPhone sit off screen until you scroll. It also reports iPad-only system elements, such as the floating keyboard suggestion bar, so the iPad run is a manual check rather than a gate.
 
 Two things it can't judge. A word broken in the middle still counts as fitting, so the card widths are held by `DesignTokenTests` instead. And no audit checks that VoiceOver's reading order makes sense, so that stays a manual pass.
 

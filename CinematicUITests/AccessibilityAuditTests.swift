@@ -59,6 +59,10 @@ private extension AccessibilityAuditTests {
 
         tab("Search", in: app).tap()
         let field = app.searchFields.firstMatch
+        if !field.waitForExistence(timeout: 5) {
+            // iPad collapses the search field into a toolbar button.
+            app.navigationBars.buttons["Search"].firstMatch.tap()
+        }
         XCTAssertTrue(field.waitForExistence(timeout: 15))
         try audit(app, isAccessibilitySize: isAccessibilitySize)
 
