@@ -1,0 +1,27 @@
+# Dependabot reads Package.swift manifests, not the Xcode project, so a Swift
+# update bumps the packages' `from:` requirement only. Finish it by hand: bump
+# the project's package reference and commit the regenerated Package.resolved
+# (see CLAUDE.md).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: ci
+
+  - package-ecosystem: swift
+    directories:
+      - /Package/CinematicPresentation
+      - /Package/CinematicComparison
+    schedule:
+      interval: monthly
+    groups:
+      swift-packages:
+        patterns: ["*"]
+    commit-message:
+      prefix: chore
