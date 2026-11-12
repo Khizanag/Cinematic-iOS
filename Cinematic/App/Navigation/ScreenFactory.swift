@@ -12,7 +12,6 @@ struct ScreenFactory: View {
 
     var body: some View {
         destination
-            .transparentSystemChrome()
     }
 }
 
