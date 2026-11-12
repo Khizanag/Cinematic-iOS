@@ -1,3 +1,4 @@
+import CinematicDesign
 import CinematicDomain
 import CinematicPresentation
 import SwiftUI
@@ -22,6 +23,9 @@ struct ContentView: View {
         }
         .tabViewStyle(.sidebarAdaptable)
         .tabBarMinimizeBehavior(.onScrollDown)
+        // `.automatic` resolves to the hard edge here, an opaque band under
+        // the bars; the soft fade is the iPhone system look.
+        .scrollEdgeEffectStyle(.soft, for: .all)
     }
 }
 
@@ -62,6 +66,7 @@ private extension ContentView {
                     Image(systemName: "info.circle")
                 }
             }
+            .tint(DesignSystem.Color.chrome)
         }
     }
 }
