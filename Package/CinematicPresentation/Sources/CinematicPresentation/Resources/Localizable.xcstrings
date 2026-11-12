@@ -375,23 +375,6 @@
         }
       }
     },
-    "general.close": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schließen"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Close"
-          }
-        }
-      }
-    },
     "genre.actionAndAdventure": {
       "extractionState": "manual",
       "localizations": {

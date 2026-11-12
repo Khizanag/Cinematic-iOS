@@ -5,10 +5,11 @@ import SwiftUI
 
 /// Full-screen trailer playback.
 ///
-/// Deliberately bare: no `NavigationStack`, no toolbar — a glass bar would
-/// live-sample the video layer for its blur. The close control sits top
-/// trailing so the player's own fullscreen toggle (top leading) stays
-/// reachable, and a loading overlay bridges the gap between presentation and
+/// Dismissal is the presenter's job: the composition root hosts this view in
+/// a `NavigationStack` with the app's shared close item. The video stays
+/// inside the safe area, below that bar, so the player's own controls are
+/// never covered and the bar's glass samples the black backdrop rather than
+/// moving video. A loading overlay bridges the gap between presentation and
 /// the first rendered frame.
 public struct TrailerPlayerView: View {
     private enum PlaybackPhase {
@@ -16,9 +17,6 @@ public struct TrailerPlayerView: View {
         case playing
         case failed
     }
-
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
 
     @State private var player: AVPlayer
     @State private var playerItem: AVPlayerItem
@@ -32,13 +30,12 @@ public struct TrailerPlayerView: View {
 
     public var body: some View {
         VideoPlayer(player: player)
-            .ignoresSafeArea()
+            .background(DesignSystem.Color.mediaBackground.ignoresSafeArea())
             .onAppear(perform: startPlayback)
             .onDisappear { player.pause() }
             .onReceive(player.publisher(for: \.timeControlStatus)) { updatePhase(timeControlStatus: $0) }
             .onReceive(playerItem.publisher(for: \.status)) { updatePhase(itemStatus: $0) }
             .overlay { statusOverlay }
-            .overlay(alignment: .topTrailing) { closeButton }
             .animation(DesignSystem.Motion.quick, value: phase)
     }
 }
@@ -78,31 +75,6 @@ private extension TrailerPlayerView {
         .font(DesignSystem.Font.subheadline)
         .foregroundStyle(DesignSystem.Color.onMedia)
         .padding(DesignSystem.Spacing.md)
-    }
-
-    var closeButton: some View {
-        Button {
-            dismiss()
-        } label: {
-            Image(systemName: "xmark")
-                .font(DesignSystem.Font.headline)
-                .foregroundStyle(DesignSystem.Color.textPrimary)
-                .frame(
-                    width: DesignSystem.Size.Button.minimumTapTarget,
-                    height: DesignSystem.Size.Button.minimumTapTarget,
-                )
-                .background(closeButtonBackground, in: .circle)
-                .contentShape(.circle)
-        }
-        .buttonStyle(.plain)
-        .padding(DesignSystem.Spacing.md)
-        .accessibilityLabel(Text("general.close", bundle: .module))
-    }
-
-    var closeButtonBackground: AnyShapeStyle {
-        reduceTransparency
-            ? AnyShapeStyle(DesignSystem.Color.cardBackground)
-            : AnyShapeStyle(.ultraThinMaterial)
     }
 }
 

@@ -11,6 +11,9 @@ extension DesignSystem {
         /// Sanctioned absolute white — text/icons drawn over video and
         /// photographic surfaces, which are dark in both appearances.
         public static let onMedia = SwiftUI.Color.white
+        /// Sanctioned absolute black — the backdrop around video, which a
+        /// player letterboxes in black in both appearances.
+        public static let mediaBackground = SwiftUI.Color.black
 
         // Surfaces
         public static let background = SwiftUI.Color(light: 0xF6F6FB, dark: 0x0B0A12)

@@ -4,7 +4,7 @@ Accessibility is treated as a correctness requirement here, not a finishing pass
 
 ## VoiceOver
 
-- **Every interactive element has a label.** Buttons carry text or an explicit `accessibilityLabel` — the favorite toggle, the trailer close button, the About and store links.
+- **Every interactive element has a label.** Buttons carry text or an explicit `accessibilityLabel` — the favorite toggle, the shared close button on the About sheet and the trailer, the About and store links.
 - **Cards read as one element.** `MovieCard` and the favorites row use `.accessibilityElement(children: .combine)`, so VoiceOver announces "The Silent Voyage, Drama" as a single button instead of three fragments.
 - **Activation is explained.** Movie buttons add `.accessibilityHint("Opens movie details")` so a VoiceOver user knows what a tap does before committing to it.
 - **Decorative imagery is hidden.** `PosterImage` is `.accessibilityHidden(true)` — the poster is always paired with visible text, so the artwork is noise to a screen reader.
@@ -26,11 +26,11 @@ The only continuous animation in the app is the skeleton shimmer. `SkeletonView`
 
 ## Reduce Transparency
 
-The trailer's close button is the one place a material (`.ultraThinMaterial`) is used directly. It reads `@Environment(\.accessibilityReduceTransparency)` and swaps to an opaque `DesignSystem.Color.cardBackground` when the setting is on. The system navigation and tab bars handle their own translucency.
+No view uses a material directly. Translucency comes only from the system navigation and tab bars, including the trailer's close button, which lives in a navigation bar like every other close button, and the system handles Reduce Transparency for them.
 
 ## Hit targets
 
-Interactive controls meet the 44×44 pt minimum. The trailer close button and the detail screen's store link are sized to `DesignSystem.Size.Button.minimumTapTarget` explicitly; list rows and cards are comfortably larger.
+Interactive controls meet the 44×44 pt minimum. The detail screen's store link and the genre chips are sized to `DesignSystem.Size.Button.minimumTapTarget` explicitly, toolbar buttons get the system's size; list rows and cards are comfortably larger.
 
 ## Localization
 
@@ -55,5 +55,5 @@ Two things it can't judge. A word broken in the middle still counts as fitting, 
 - **VoiceOver**: Settings → Accessibility → VoiceOver, then swipe through Discover, a detail screen, and the trailer.
 - **Dynamic Type**: Settings → Accessibility → Display & Text Size → Larger Text, push it to the largest size, and confirm nothing truncates or overlaps.
 - **Reduce Motion**: Settings → Accessibility → Motion → Reduce Motion — the skeletons should stop pulsing.
-- **Reduce Transparency**: Settings → Accessibility → Display & Text Size → Reduce Transparency — the trailer close button should turn opaque.
+- **Reduce Transparency**: Settings → Accessibility → Display & Text Size → Reduce Transparency — the navigation and tab bars, including the trailer's close button, should turn opaque.
 - **German**: launch with `-AppleLanguages "(de)" -AppleLocale "de_DE"` to confirm the localized strings and formatting.
