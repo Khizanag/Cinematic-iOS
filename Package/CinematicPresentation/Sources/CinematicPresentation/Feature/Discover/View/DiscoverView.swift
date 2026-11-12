@@ -31,7 +31,48 @@ public struct DiscoverView: View {
         content
             .background(DesignSystem.Color.background)
             .navigationTitle(Text("discover.title", bundle: .module))
+            .navigationSubtitle(store.state.selectedGenre?.displayName ?? "")
+            .toolbar { toolbarContent }
             .task { store.send(.task) }
+    }
+}
+
+// MARK: - Toolbar
+private extension DiscoverView {
+    @ToolbarContentBuilder
+    var toolbarContent: some ToolbarContent {
+        if !store.state.availableGenres.isEmpty {
+            ToolbarItem(placement: .primaryAction) {
+                genreMenu
+            }
+        }
+    }
+
+    /// The system filter pattern: a menu holding an inline picker, whose rows
+    /// carry the checkmark. The icon fills while a genre narrows the screen.
+    var genreMenu: some View {
+        Menu {
+            Picker(selection: selectedGenre) {
+                Text("discover.filter.all", bundle: .module)
+                    .tag(MovieGenre?.none)
+                ForEach(store.state.availableGenres, id: \.self) { genre in
+                    Text(genre.displayName)
+                        .tag(MovieGenre?.some(genre))
+                }
+            } label: {
+                Text("discover.filter.label", bundle: .module)
+            }
+            .pickerStyle(.inline)
+        } label: {
+            Label {
+                Text("discover.filter.label", bundle: .module)
+            } icon: {
+                Image(systemName: "line.3.horizontal.decrease.circle")
+                    .symbolVariant(store.state.selectedGenre == nil ? .none : .fill)
+            }
+        }
+        .accessibilityValue(selectedGenreName)
+        .accessibilityIdentifier(AccessibilityID.genreFilter)
     }
 }
 
@@ -60,7 +101,6 @@ private extension DiscoverView {
         .scrollPosition($scrollPosition)
         .accessibilityIdentifier(AccessibilityID.discoverList)
         .refreshable { await refresh() }
-        .safeAreaBar(edge: .top) { genreFilter }
         .onChange(of: store.state.selectedGenre) {
             scrollPosition.scrollTo(edge: .top)
         }
@@ -83,30 +123,6 @@ private extension DiscoverView {
             }
         }
         .padding(DesignSystem.Spacing.md)
-    }
-
-    var genreFilter: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: DesignSystem.Spacing.xs) {
-                FilterChip(
-                    title: String(localized: "discover.filter.all", bundle: .module),
-                    isSelected: store.state.selectedGenre == nil,
-                ) {
-                    store.send(.genreSelected(nil))
-                }
-                ForEach(store.state.availableGenres, id: \.self) { genre in
-                    FilterChip(title: genre.displayName, isSelected: store.state.selectedGenre == genre) {
-                        store.send(.genreSelected(genre))
-                    }
-                }
-            }
-            .padding(.horizontal, DesignSystem.Spacing.md)
-            .padding(.vertical, DesignSystem.Spacing.xs)
-        }
-        .scrollIndicators(.hidden)
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel(Text("discover.filter.label", bundle: .module))
-        .accessibilityIdentifier(AccessibilityID.genreFilter)
     }
 
     func featuredSection(_ movies: [Movie]) -> some View {
@@ -165,6 +181,14 @@ private extension DiscoverView {
 
 // MARK: - Helpers
 private extension DiscoverView {
+    var selectedGenre: Binding<MovieGenre?> {
+        store.binding(\.selectedGenre) { .genreSelected($0) }
+    }
+
+    var selectedGenreName: String {
+        store.state.selectedGenre?.displayName ?? String(localized: "discover.filter.all", bundle: .module)
+    }
+
     var rowCardWidth: CGFloat {
         DesignSystem.Size.Poster.card(DesignSystem.Size.Poster.row, at: dynamicTypeSize)
     }

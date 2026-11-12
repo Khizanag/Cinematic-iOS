@@ -8,7 +8,7 @@ Accessibility is treated as a correctness requirement here, not a finishing pass
 - **Cards read as one element.** `MovieCard` and the favorites row use `.accessibilityElement(children: .combine)`, so VoiceOver announces "The Silent Voyage, Drama" as a single button instead of three fragments.
 - **Activation is explained.** Movie buttons add `.accessibilityHint("Opens movie details")` so a VoiceOver user knows what a tap does before committing to it.
 - **Decorative imagery is hidden.** `PosterImage` is `.accessibilityHidden(true)` — the poster is always paired with visible text, so the artwork is noise to a screen reader.
-- **State and role are exposed.** `SectionHeader` adds the `.isHeader` trait; the favorite button and the selected genre chip add `.isSelected`, and each pairs a `.sensoryFeedback(.selection)` with the change.
+- **State and role are exposed.** `SectionHeader` adds the `.isHeader` trait; the favorite button adds `.isSelected` when the movie is a favorite, and pairs a `.sensoryFeedback(.selection)` with the toggle.
 
 ## Dynamic Type
 
@@ -30,7 +30,7 @@ No view uses a material directly. Translucency comes only from the system naviga
 
 ## Hit targets
 
-Interactive controls meet the 44×44 pt minimum. The detail screen's store link and the genre chips are sized to `DesignSystem.Size.Button.minimumTapTarget` explicitly, toolbar buttons get the system's size; list rows and cards are comfortably larger.
+Interactive controls meet the 44×44 pt minimum. The detail screen's store link is sized to `DesignSystem.Size.Button.minimumTapTarget` explicitly, toolbar buttons get the system's size; list rows and cards are comfortably larger.
 
 ## Localization
 

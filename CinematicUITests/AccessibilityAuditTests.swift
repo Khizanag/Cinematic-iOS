@@ -94,35 +94,61 @@ private extension AccessibilityAuditTests {
         return tabBarButton.exists ? tabBarButton : app.buttons[title].firstMatch
     }
 
+    /// Frames the audit's issues are judged against.
+    struct Layout {
+        let screen: CGRect
+        let systemChrome: [CGRect]
+        let cutOffCards: [CGRect]
+        let cards: [CGRect]
+    }
+
+    /// One snapshot of the whole tree; querying elements one by one costs a
+    /// round trip each, which is slow enough on CI to starve the audit.
     @MainActor
-    func audit(_ app: XCUIApplication, isAccessibilitySize: Bool) throws {
-        // One snapshot of the whole tree; querying elements one by one costs a
-        // round trip each, which is slow enough on CI to starve the audit.
+    func layout(of app: XCUIApplication) throws -> Layout {
         let root = try app.snapshot()
         let screen = root.frame
         let elements = descendants(of: root)
-        let systemChrome = elements
-            .filter { [.tabBar, .searchField, .keyboard].contains($0.elementType) }
-            .map(\.frame)
         let buttons = elements.filter { $0.elementType == .button }
-        let cutOffCards = buttons
-            .map(\.frame)
-            .filter { screen.intersects($0) && !screen.contains($0) }
-        // Inset outward by a point: a caption on a card's bottom edge can sit a
-        // fraction past the card's frame and would otherwise escape the match.
-        let cards = buttons
-            .filter { $0.identifier == "movie.card" }
-            .map { $0.frame.insetBy(dx: -1, dy: -1) }
+        return Layout(
+            screen: screen,
+            systemChrome: elements
+                .filter { [.tabBar, .searchField, .keyboard].contains($0.elementType) }
+                .map(\.frame),
+            cutOffCards: buttons
+                .map(\.frame)
+                .filter { screen.intersects($0) && !screen.contains($0) },
+            // Inset outward by a point: a caption on a card's bottom edge can sit
+            // a fraction past the card's frame and would otherwise escape the match.
+            cards: buttons
+                .filter { $0.identifier == "movie.card" }
+                .map { $0.frame.insetBy(dx: -1, dy: -1) },
+        )
+    }
+
+    @MainActor
+    func audit(_ app: XCUIApplication, isAccessibilitySize: Bool) throws {
+        // Read lazily, at the first issue: by then the layout the last action
+        // set off (a navigation bar growing a subtitle, say) has settled, so
+        // the frames match the ones the audit reports.
+        var layout: Layout?
 
         try app.performAccessibilityAudit { issue in
             guard let element = issue.element else { return false }
             let frame = element.frame
-            let isFullyVisible = screen.contains(frame)
-                && !cutOffCards.contains { $0.intersects(frame) }
-                && !systemChrome.contains { $0.intersects(frame) }
+            if layout == nil {
+                layout = try? self.layout(of: app)
+            }
+            guard let layout else {
+                XCTFail("Couldn't snapshot the screen to judge: \(issue.compactDescription)")
+                return true
+            }
+            let isFullyVisible = layout.screen.contains(frame)
+                && !layout.cutOffCards.contains { $0.intersects(frame) }
+                && !layout.systemChrome.contains { $0.intersects(frame) }
             guard isFullyVisible else { return true }
             let isTruncation = issue.auditType == .textClipped || issue.auditType == .dynamicType
-            if !isAccessibilitySize, isTruncation, cards.contains(where: { $0.contains(frame) }) {
+            if !isAccessibilitySize, isTruncation, layout.cards.contains(where: { $0.contains(frame) }) {
                 return true
             }
             // Reported here rather than by the audit, whose message doesn't name the element.
