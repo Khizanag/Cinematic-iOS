@@ -40,6 +40,12 @@ private extension AccessibilityAuditTests {
         XCTAssertTrue(movie.waitForExistence(timeout: 25))
         try audit(app, isAccessibilitySize: isAccessibilitySize)
 
+        app.tapGenre("Drama")
+        XCTAssertTrue(movie.waitForNonExistence(timeout: 10))
+        try audit(app, isAccessibilitySize: isAccessibilitySize)
+        app.tapGenre("All")
+        XCTAssertTrue(movie.waitForExistence(timeout: 10))
+
         movie.tap()
         XCTAssertTrue(app.descendants(matching: .any)["movieDetail.container"].waitForExistence(timeout: 25))
         try audit(app, isAccessibilitySize: isAccessibilitySize)
@@ -102,7 +108,11 @@ private extension AccessibilityAuditTests {
         let cutOffCards = buttons
             .map(\.frame)
             .filter { screen.intersects($0) && !screen.contains($0) }
-        let cards = buttons.filter { $0.identifier == "movie.card" }.map(\.frame)
+        // Inset outward by a point: a caption on a card's bottom edge can sit a
+        // fraction past the card's frame and would otherwise escape the match.
+        let cards = buttons
+            .filter { $0.identifier == "movie.card" }
+            .map { $0.frame.insetBy(dx: -1, dy: -1) }
 
         try app.performAccessibilityAudit { issue in
             guard let element = issue.element else { return false }

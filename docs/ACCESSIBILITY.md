@@ -8,7 +8,7 @@ Accessibility is treated as a correctness requirement here, not a finishing pass
 - **Cards read as one element.** `MovieCard` and the favorites row use `.accessibilityElement(children: .combine)`, so VoiceOver announces "The Silent Voyage, Drama" as a single button instead of three fragments.
 - **Activation is explained.** Movie buttons add `.accessibilityHint("Opens movie details")` so a VoiceOver user knows what a tap does before committing to it.
 - **Decorative imagery is hidden.** `PosterImage` is `.accessibilityHidden(true)` — the poster is always paired with visible text, so the artwork is noise to a screen reader.
-- **State and role are exposed.** `SectionHeader` adds the `.isHeader` trait; the favorite button adds `.isSelected` when the movie is a favorite, and pairs a `.sensoryFeedback(.selection)` with the toggle.
+- **State and role are exposed.** `SectionHeader` adds the `.isHeader` trait; the favorite button and the selected genre chip add `.isSelected`, and each pairs a `.sensoryFeedback(.selection)` with the change.
 
 ## Dynamic Type
 
@@ -38,9 +38,9 @@ Accessibility strings are localized like every other string — hints, labels, a
 
 ## The automated audit
 
-[`AccessibilityAuditTests`](https://github.com/Khizanag/Cinematic-iOS/blob/main/CinematicUITests/AccessibilityAuditTests.swift) runs Xcode's accessibility audit (contrast, hit targets, clipped text, missing labels, Dynamic Type support) on every screen: Discover, a movie's details, the trailer, empty favorites, search, and search results. It runs once at the default text size and once at the largest accessibility size, and fails on any issue.
+[`AccessibilityAuditTests`](https://github.com/Khizanag/Cinematic-iOS/blob/main/CinematicUITests/AccessibilityAuditTests.swift) runs Xcode's accessibility audit (contrast, hit targets, clipped text, missing labels, Dynamic Type support) on every screen: Discover, Discover narrowed to one genre, a movie's details, the trailer, empty favorites, search, and search results. It runs once at the default text size and once at the largest accessibility size, and fails on any issue.
 
-The audit reads pixels, so it also judges what nobody can see. A row scrolled beneath the floating tab bar reads as low contrast, and a carousel card peeking past the screen edge reads as clipped. The test counts an issue only when its element is fully on screen, outside a cut-off card, and clear of system chrome (the tab bar, the search field, the keyboard), which the app doesn't draw.
+The audit reads pixels, so it also judges what nobody can see. A row scrolled beneath the floating tab bar reads as low contrast, and a carousel card peeking past the screen edge reads as clipped. The test counts an issue only when its element is fully on screen, outside a cut-off card, and clear of system chrome (the tab bar, the search field, the keyboard), which the app doesn't draw. Card frames get a point of slack, because a caption on a card's bottom edge can sit a fraction past it.
 
 Its first runs found five real problems, all fixed: the store link's 18 pt hit area, truncated card titles and captions, a truncated empty-state title, an empty-state description that only nearly passed contrast, and a price VoiceOver read as a bare "$14.99" with no context. The last one surfaced only on CI's older Xcode, whose audit checks differ from newer ones; the test names the failing element, so a CI-only failure is traceable from the log.
 
