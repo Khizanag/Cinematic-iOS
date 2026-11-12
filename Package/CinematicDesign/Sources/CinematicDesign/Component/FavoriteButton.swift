@@ -18,7 +18,7 @@ public struct FavoriteButton: View {
         Button(action: action) {
             Image(systemName: isFavorite ? "heart.fill" : "heart")
                 .symbolEffect(.bounce, value: isFavorite)
-                .foregroundStyle(isFavorite ? DesignSystem.Color.danger : DesignSystem.Color.accent)
+                .foregroundStyle(isFavorite ? DesignSystem.Color.danger : DesignSystem.Color.chrome)
         }
         .sensoryFeedback(.selection, trigger: isFavorite)
         .accessibilityLabel(label)

@@ -1,3 +1,4 @@
+import CinematicDesign
 import SwiftUI
 
 /// The shared xmark dismiss item for sheets and covers.
@@ -9,6 +10,7 @@ struct CloseToolbarItem: ToolbarContent {
             Button(action: action) {
                 Image(systemName: "xmark")
             }
+            .tint(DesignSystem.Color.chrome)
             .accessibilityLabel(Text("general.close"))
         }
     }

@@ -21,4 +21,17 @@ extension MovieGenre {
             String(localized: "genre.thriller", bundle: .module)
         }
     }
+
+    /// The genre's one symbol, wherever the genre appears.
+    var symbolName: String {
+        switch self {
+        case .actionAndAdventure: "flame"
+        case .comedy: "face.smiling"
+        case .drama: "theatermasks"
+        case .horror: "eye"
+        case .kidsAndFamily: "figure.2.and.child.holdinghands"
+        case .sciFiAndFantasy: "sparkles"
+        case .thriller: "bolt"
+        }
+    }
 }

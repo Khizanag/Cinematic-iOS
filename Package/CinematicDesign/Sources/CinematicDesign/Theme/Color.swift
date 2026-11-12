@@ -15,6 +15,10 @@ extension DesignSystem {
         /// player letterboxes in black in both appearances.
         public static let mediaBackground = SwiftUI.Color.black
 
+        /// The system label color, for toolbar glyphs: bar items match the
+        /// system back button rather than the brand tint.
+        public static let chrome = SwiftUI.Color.primary
+
         // Surfaces
         public static let background = SwiftUI.Color(light: 0xF6F6FB, dark: 0x0B0A12)
         public static let cardBackground = SwiftUI.Color(light: 0xFFFFFF, dark: 0x1C1B27)

@@ -53,10 +53,14 @@ private extension DiscoverView {
     var genreMenu: some View {
         Menu {
             Picker(selection: selectedGenre) {
-                Text("discover.filter.all", bundle: .module)
-                    .tag(MovieGenre?.none)
+                Label {
+                    Text("discover.filter.all", bundle: .module)
+                } icon: {
+                    Image(systemName: Self.allGenresSymbol)
+                }
+                .tag(MovieGenre?.none)
                 ForEach(store.state.availableGenres, id: \.self) { genre in
-                    Text(genre.displayName)
+                    Label(genre.displayName, systemImage: genre.symbolName)
                         .tag(MovieGenre?.some(genre))
                 }
             } label: {
@@ -71,6 +75,7 @@ private extension DiscoverView {
                     .symbolVariant(store.state.selectedGenre == nil ? .none : .fill)
             }
         }
+        .tint(DesignSystem.Color.chrome)
         .accessibilityValue(selectedGenreName)
         .accessibilityIdentifier(AccessibilityID.genreFilter)
     }
@@ -128,6 +133,7 @@ private extension DiscoverView {
     func featuredSection(_ movies: [Movie]) -> some View {
         section(
             title: String(localized: "discover.topMovies", bundle: .module),
+            systemImage: Self.topMoviesSymbol,
             movies: movies,
             posterWidth: DesignSystem.Size.Poster.featured,
         )
@@ -136,14 +142,15 @@ private extension DiscoverView {
     func genreSection(_ genreSection: DiscoverCatalog.GenreSection) -> some View {
         section(
             title: genreSection.genre.displayName,
+            systemImage: genreSection.genre.symbolName,
             movies: genreSection.movies,
             posterWidth: DesignSystem.Size.Poster.row,
         )
     }
 
-    func section(title: String, movies: [Movie], posterWidth: CGFloat) -> some View {
+    func section(title: String, systemImage: String, movies: [Movie], posterWidth: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: DesignSystem.Spacing.sm) {
-            SectionHeader(title: title)
+            SectionHeader(title: title, systemImage: systemImage)
                 .padding(.horizontal, DesignSystem.Spacing.md)
             posterRow(movies, posterWidth: posterWidth)
         }
@@ -181,6 +188,9 @@ private extension DiscoverView {
 
 // MARK: - Helpers
 private extension DiscoverView {
+    static let allGenresSymbol = "square.grid.2x2"
+    static let topMoviesSymbol = "star"
+
     var selectedGenre: Binding<MovieGenre?> {
         store.binding(\.selectedGenre) { .genreSelected($0) }
     }
