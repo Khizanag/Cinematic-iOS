@@ -42,6 +42,9 @@ private extension AccessibilityAuditTests {
 
         app.tapGenre("Drama")
         XCTAssertTrue(movie.waitForNonExistence(timeout: 10))
+        // The genre's subtitle grows the navigation bar and pushes the grid
+        // down; audited mid-move, captions are judged against stale pixels.
+        waitUntilStill(app.staticTexts["Neon Tide"].firstMatch)
         try audit(app, isAccessibilitySize: isAccessibilitySize)
         app.tapGenre("All")
         XCTAssertTrue(movie.waitForExistence(timeout: 10))
