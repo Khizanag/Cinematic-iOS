@@ -1,5 +1,5 @@
-// swift-tools-version: 6.2
-// 6.2 is a deliberate floor: every Xcode 26 release can build this repo.
+// swift-tools-version: 6.4
+// 6.4 is the floor: the repo builds with Xcode 27, locally and on CI.
 import PackageDescription
 
 // Note what is missing: CinematicData. The presentation layer depends on

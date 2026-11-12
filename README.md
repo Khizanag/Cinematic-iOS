@@ -116,7 +116,7 @@ cd Cinematic-iOS
 open Cinematic.xcodeproj
 ```
 
-Select the `Cinematic` scheme and run on any iOS 26 simulator. Requires Xcode 26 or later.
+Select the `Cinematic` scheme and run on any iOS 26 or later simulator. Requires Xcode 27 or later.
 
 ## Project layout
 
@@ -163,7 +163,7 @@ cd Package/CinematicDomain && swift test
 cd Package/CinematicData && swift test
 cd Package/CinematicComparison && swift test
 
-# UI packages and the app — run on an iOS 26 simulator
+# UI packages and the app — run on an iOS 26 or later simulator
 xcodebuild test -scheme CinematicDesign -destination 'platform=iOS Simulator,name=iPhone 17'
 xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulator,name=iPhone 17'
 xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'

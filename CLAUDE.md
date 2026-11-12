@@ -17,13 +17,13 @@ cd Package/CinematicDomain && swift test
 cd Package/CinematicData && swift test
 cd Package/CinematicComparison && swift test
 
-# UI packages + app (iOS 26 simulator required)
+# UI packages + app (iOS 26 or later simulator required)
 xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulator,name=iPhone 17'
 xcodebuild test -scheme CinematicDesign -destination 'platform=iOS Simulator,name=iPhone 17'
 xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
-There is no workspace — always build with `-project` (or from a package directory). The deployment target is iOS 26, so the destination must be an iOS 26 simulator (`iPhone 17` family).
+There is no workspace — always build with `-project` (or from a package directory). The deployment target is iOS 26, so any iOS 26 or later simulator works (`iPhone 17` family). The repo builds with Xcode 27 (Swift 6.4 tools); CI runs on GitHub's `xcode-27` image.
 
 ## Architecture map
 

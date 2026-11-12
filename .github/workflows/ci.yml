@@ -12,8 +12,9 @@ concurrency:
 
 jobs:
   ci:
-    uses: Khizanag/iOS-Toolkit/.github/workflows/ios-ci.yml@v1.3.0
+    uses: Khizanag/iOS-Toolkit/.github/workflows/ios-ci.yml@v1.5.0
     with:
+      xcode: '27'
       packages: '["Package/CinematicDomain", "Package/CinematicData", "Package/CinematicComparison"]'
       xcodebuild: >-
         [{"name": "CinematicDesign (simulator)", "scheme": "CinematicDesign", "directory": "Package/CinematicDesign"},
@@ -24,14 +25,14 @@ jobs:
     name: Coverage badge
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: ci
-    runs-on: macos-26
+    runs-on: xcode-27
     timeout-minutes: 20
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v7
-      - name: Select latest Xcode 26
-        run: sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+      - name: Select latest Xcode 27
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode_27*.app | sort -V | tail -1)"
       - name: Run pure-package tests with coverage
         run: |
           for package in CinematicDomain CinematicData; do
