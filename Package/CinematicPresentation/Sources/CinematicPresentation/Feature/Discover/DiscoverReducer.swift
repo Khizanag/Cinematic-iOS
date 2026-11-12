@@ -6,6 +6,19 @@ struct DiscoverReducer: Reducer {
     struct State: Equatable {
         var catalog: LoadingPhase<DiscoverCatalog, MovieError> = .idle
         var isRefreshing = false
+        /// `nil` shows every row; a genre narrows the screen to its full chart.
+        var selectedGenre: MovieGenre?
+
+        /// The genres a filter can offer: only those whose row actually loaded.
+        var availableGenres: [MovieGenre] {
+            catalog.value?.sections.map(\.genre) ?? []
+        }
+
+        /// The row the filter narrows to, or `nil` when showing everything.
+        var selectedSection: DiscoverCatalog.GenreSection? {
+            guard let selectedGenre else { return nil }
+            return catalog.value?.sections.first { $0.genre == selectedGenre }
+        }
     }
 
     enum Intent: Sendable {
@@ -16,6 +29,7 @@ struct DiscoverReducer: Reducer {
         case loadFailed(MovieError)
         case refreshSucceeded(DiscoverCatalog)
         case refreshFailed
+        case genreSelected(MovieGenre?)
     }
 
     private let fetchDiscoverCatalog: FetchDiscoverCatalogUseCase
@@ -42,7 +56,7 @@ struct DiscoverReducer: Reducer {
             return refresh()
 
         case let .catalogLoaded(catalog):
-            state.catalog = .loaded(catalog)
+            apply(catalog, to: &state)
             return .none
 
         case let .loadFailed(error):
@@ -51,13 +65,41 @@ struct DiscoverReducer: Reducer {
 
         case let .refreshSucceeded(catalog):
             state.isRefreshing = false
-            state.catalog = .loaded(catalog)
+            apply(catalog, to: &state)
             return .none
 
         case .refreshFailed:
             // Non-destructive: a failed refresh keeps the content on screen.
             state.isRefreshing = false
             return .none
+
+        case let .genreSelected(genre):
+            // Filtering is derived state over the loaded catalog, which already
+            // holds each genre's chart — no effect, no second fetch.
+            select(genre, in: &state)
+            return .none
+        }
+    }
+}
+
+// MARK: - State
+private extension DiscoverReducer {
+    /// Ignores a genre the catalog has no row for.
+    func select(_ genre: MovieGenre?, in state: inout State) {
+        guard let genre else {
+            state.selectedGenre = nil
+            return
+        }
+        guard state.availableGenres.contains(genre) else { return }
+        state.selectedGenre = genre
+    }
+
+    /// A reload may drop a genre whose row failed; a filter pointing at it
+    /// would show nothing, so it falls back to every row.
+    func apply(_ catalog: DiscoverCatalog, to state: inout State) {
+        state.catalog = .loaded(catalog)
+        if let selectedGenre = state.selectedGenre, !state.availableGenres.contains(selectedGenre) {
+            state.selectedGenre = nil
         }
     }
 }

@@ -32,6 +32,7 @@ extension DesignSystem {
         public enum Skeleton {
             public static let header: CGFloat = 22
             public static let line: CGFloat = 14
+            public static let chip: CGFloat = 88
         }
     }
 }

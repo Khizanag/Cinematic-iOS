@@ -46,6 +46,21 @@ nonisolated final class CinematicUITests: XCTestCase {
     }
 
     @MainActor
+    func testGenreFilterNarrowsDiscover() {
+        let app = launchStubbedApp()
+
+        XCTAssertTrue(app.genreFilter.waitForExistence(timeout: 15))
+        app.tapGenre("Drama")
+
+        // The Silent Voyage charts overall but not in Drama.
+        XCTAssertTrue(app.staticTexts["The Silent Voyage"].waitForNonExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Neon Tide"].exists)
+
+        app.tapGenre("All")
+        XCTAssertTrue(app.staticTexts["The Silent Voyage"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testSearchFindsCatalogMovie() {
         let app = launchStubbedApp()
 

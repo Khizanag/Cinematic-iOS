@@ -94,6 +94,76 @@ struct DiscoverReducerTests {
     }
 }
 
+// MARK: - Genre filter
+extension DiscoverReducerTests {
+    @Test("The filter offers only genres whose row loaded, in row order")
+    func availableGenresFollowSections() {
+        let state = DiscoverReducer.State(catalog: .loaded(PreviewCatalog.discover))
+
+        #expect(state.availableGenres == [.actionAndAdventure, .drama, .comedy])
+        #expect(DiscoverReducer.State().availableGenres.isEmpty)
+    }
+
+    @Test("Selecting a genre narrows to its row without an effect")
+    func selectingGenreNarrows() {
+        let store = Store(
+            initialState: DiscoverReducer.State(catalog: .loaded(PreviewCatalog.discover)),
+            reducer: makeReducer(),
+        )
+
+        store.send(.genreSelected(.drama))
+
+        #expect(!store.hasPendingEffects)
+        #expect(store.state.selectedGenre == .drama)
+        #expect(store.state.selectedSection == PreviewCatalog.discover.sections[1])
+    }
+
+    @Test("Selecting all clears the filter")
+    func selectingAllClears() {
+        var state = DiscoverReducer.State(catalog: .loaded(PreviewCatalog.discover), selectedGenre: .drama)
+
+        _ = makeReducer().reduce(&state, .genreSelected(nil))
+
+        #expect(state.selectedGenre == nil)
+        #expect(state.selectedSection == nil)
+    }
+
+    @Test("A genre without a loaded row is ignored", arguments: [MovieGenre.horror, .thriller])
+    func unavailableGenreIgnored(genre: MovieGenre) {
+        var state = DiscoverReducer.State(catalog: .loaded(PreviewCatalog.discover), selectedGenre: .comedy)
+
+        _ = makeReducer().reduce(&state, .genreSelected(genre))
+
+        #expect(state.selectedGenre == .comedy)
+    }
+
+    @Test("A reload that keeps the selected genre keeps the filter")
+    func reloadKeepsAvailableSelection() {
+        var state = DiscoverReducer.State(catalog: .loaded(PreviewCatalog.discover), selectedGenre: .drama)
+
+        _ = makeReducer().reduce(&state, .refreshSucceeded(PreviewCatalog.discover))
+
+        #expect(state.selectedGenre == .drama)
+    }
+
+    @Test("A reload that drops the selected genre falls back to every row")
+    func reloadDroppingGenreClearsSelection() {
+        let withoutDrama = DiscoverCatalog(
+            featured: PreviewCatalog.discover.featured,
+            sections: PreviewCatalog.discover.sections.filter { $0.genre != .drama },
+        )
+        let reducer = makeReducer()
+        var refreshed = DiscoverReducer.State(catalog: .loaded(PreviewCatalog.discover), selectedGenre: .drama)
+        var reloaded = refreshed
+
+        _ = reducer.reduce(&refreshed, .refreshSucceeded(withoutDrama))
+        _ = reducer.reduce(&reloaded, .catalogLoaded(withoutDrama))
+
+        #expect(refreshed.selectedGenre == nil)
+        #expect(reloaded.selectedGenre == nil)
+    }
+}
+
 // MARK: - Helpers
 private extension DiscoverReducerTests {
     func makeReducer() -> DiscoverReducer {

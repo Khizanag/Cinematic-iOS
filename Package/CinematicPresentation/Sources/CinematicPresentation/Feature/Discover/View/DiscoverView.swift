@@ -3,7 +3,8 @@ import CinematicDomain
 import MVIKit
 import SwiftUI
 
-/// The home screen: featured chart plus one horizontal row per genre.
+/// The home screen: featured chart plus one horizontal row per genre, or one
+/// genre's full chart as a grid when the genre filter narrows it.
 ///
 /// Navigation-agnostic by design — it reports selection through
 /// `onSelectMovie` and the composition root decides where that leads.
@@ -13,6 +14,7 @@ public struct DiscoverView: View {
     private let onSelectMovie: (Movie) -> Void
 
     @State private var store: Store<DiscoverReducer>
+    @State private var scrollPosition = ScrollPosition(edge: .top)
 
     public init(
         fetchDiscoverCatalog: FetchDiscoverCatalogUseCase,
@@ -49,16 +51,62 @@ private extension DiscoverView {
 
     func loadedContent(_ catalog: DiscoverCatalog) -> some View {
         ScrollView {
-            LazyVStack(alignment: .leading, spacing: DesignSystem.Spacing.lg) {
-                featuredSection(catalog.featured)
-                ForEach(catalog.sections) { section in
-                    genreSection(section)
-                }
+            if let section = store.state.selectedSection {
+                genreGrid(section.movies)
+            } else {
+                allRows(catalog)
             }
-            .padding(.vertical, DesignSystem.Spacing.md)
         }
+        .scrollPosition($scrollPosition)
         .accessibilityIdentifier(AccessibilityID.discoverList)
         .refreshable { await refresh() }
+        .safeAreaBar(edge: .top) { genreFilter }
+        .onChange(of: store.state.selectedGenre) {
+            scrollPosition.scrollTo(edge: .top)
+        }
+    }
+
+    func allRows(_ catalog: DiscoverCatalog) -> some View {
+        LazyVStack(alignment: .leading, spacing: DesignSystem.Spacing.lg) {
+            featuredSection(catalog.featured)
+            ForEach(catalog.sections) { section in
+                genreSection(section)
+            }
+        }
+        .padding(.vertical, DesignSystem.Spacing.md)
+    }
+
+    func genreGrid(_ movies: [Movie]) -> some View {
+        LazyVGrid(columns: gridColumns, alignment: .leading, spacing: DesignSystem.Spacing.md) {
+            ForEach(movies) { movie in
+                movieButton(movie, caption: movie.directorName, posterWidth: rowCardWidth)
+            }
+        }
+        .padding(DesignSystem.Spacing.md)
+    }
+
+    var genreFilter: some View {
+        ScrollView(.horizontal) {
+            HStack(spacing: DesignSystem.Spacing.xs) {
+                FilterChip(
+                    title: String(localized: "discover.filter.all", bundle: .module),
+                    isSelected: store.state.selectedGenre == nil,
+                ) {
+                    store.send(.genreSelected(nil))
+                }
+                ForEach(store.state.availableGenres, id: \.self) { genre in
+                    FilterChip(title: genre.displayName, isSelected: store.state.selectedGenre == genre) {
+                        store.send(.genreSelected(genre))
+                    }
+                }
+            }
+            .padding(.horizontal, DesignSystem.Spacing.md)
+            .padding(.vertical, DesignSystem.Spacing.xs)
+        }
+        .scrollIndicators(.hidden)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("discover.filter.label", bundle: .module))
+        .accessibilityIdentifier(AccessibilityID.genreFilter)
     }
 
     func featuredSection(_ movies: [Movie]) -> some View {
@@ -90,7 +138,7 @@ private extension DiscoverView {
         return ScrollView(.horizontal) {
             LazyHStack(alignment: .top, spacing: DesignSystem.Spacing.sm) {
                 ForEach(movies) { movie in
-                    movieButton(movie, posterWidth: cardWidth)
+                    movieButton(movie, caption: movie.genreName, posterWidth: cardWidth)
                 }
             }
             .padding(.horizontal, DesignSystem.Spacing.md)
@@ -98,13 +146,13 @@ private extension DiscoverView {
         .scrollIndicators(.hidden)
     }
 
-    func movieButton(_ movie: Movie, posterWidth: CGFloat) -> some View {
+    func movieButton(_ movie: Movie, caption: String?, posterWidth: CGFloat) -> some View {
         Button {
             onSelectMovie(movie)
         } label: {
             MovieCard(
                 title: movie.title,
-                caption: movie.genreName,
+                caption: caption,
                 posterURL: movie.posterURL,
                 width: posterWidth,
             )
@@ -112,6 +160,17 @@ private extension DiscoverView {
         .buttonStyle(.plain)
         .accessibilityHint(Text("accessibility.opensDetails", bundle: .module))
         .accessibilityIdentifier(AccessibilityID.movieCard)
+    }
+}
+
+// MARK: - Helpers
+private extension DiscoverView {
+    var rowCardWidth: CGFloat {
+        DesignSystem.Size.Poster.card(DesignSystem.Size.Poster.row, at: dynamicTypeSize)
+    }
+
+    var gridColumns: [GridItem] {
+        [GridItem(.adaptive(minimum: rowCardWidth), spacing: DesignSystem.Spacing.md)]
     }
 }
 
