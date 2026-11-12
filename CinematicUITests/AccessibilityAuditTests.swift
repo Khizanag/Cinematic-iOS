@@ -70,8 +70,15 @@ private extension AccessibilityAuditTests {
             app.navigationBars.buttons["Search"].firstMatch.tap()
         }
         XCTAssertTrue(field.waitForExistence(timeout: 15))
+        // Focused first: on Xcode 27 the audit never finishes while the tab
+        // bar's search field sits empty and unfocused, and every audit after it
+        // times out too. Focus moves the field to the top and re-centers the
+        // content, so the audit waits for that to finish.
+        field.tap()
+        waitUntilStill(app.staticTexts["Search the Catalog"])
         try audit(app, isAccessibilitySize: isAccessibilitySize)
 
+        // The Dynamic Type audit can take focus away from the field.
         field.tap()
         field.typeText("voyage\n")
         XCTAssertTrue(app.staticTexts["The Silent Voyage"].waitForExistence(timeout: 10))
@@ -113,7 +120,7 @@ private extension AccessibilityAuditTests {
         return Layout(
             screen: screen,
             systemChrome: elements
-                .filter { [.tabBar, .searchField, .keyboard].contains($0.elementType) }
+                .filter { isSystemChrome($0) }
                 .map(\.frame),
             cutOffCards: buttons
                 .map(\.frame)
@@ -124,6 +131,31 @@ private extension AccessibilityAuditTests {
                 .filter { $0.identifier == "movie.card" }
                 .map { $0.frame.insetBy(dx: -1, dy: -1) },
         )
+    }
+
+    /// Bars and input the app doesn't draw. On Xcode 27 the keyboard and its
+    /// suggestion bar report as plain elements under these system views, not
+    /// as `.keyboard`.
+    @MainActor
+    func isSystemChrome(_ element: any XCUIElementSnapshot) -> Bool {
+        [.tabBar, .searchField, .keyboard].contains(element.elementType)
+            || ["inputView", "SystemInputAssistantView"].contains(element.identifier)
+    }
+
+    /// Returns once `element` holds the same frame across two reads: the audit
+    /// reads pixels, and UIKit-driven moves aren't calmed by the UI-test mode.
+    @MainActor
+    func waitUntilStill(_ element: XCUIElement, timeout: TimeInterval = 5) {
+        XCTAssertTrue(element.waitForExistence(timeout: timeout))
+        let deadline = Date.now.addingTimeInterval(timeout)
+        var last = element.frame
+        while Date.now < deadline {
+            RunLoop.current.run(until: .now.addingTimeInterval(0.3))
+            let frame = element.frame
+            if frame == last { return }
+            last = frame
+        }
+        XCTFail("\(element) kept moving for \(timeout) s")
     }
 
     @MainActor
