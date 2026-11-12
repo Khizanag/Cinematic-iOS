@@ -79,7 +79,9 @@ The isolation story is deliberate and layered:
 
 - `MVIKit`, `CinematicDesign`, `CinematicPresentation`, and the app build with **default MainActor isolation** (`defaultIsolation(MainActor.self)`) — UI state lives on the main actor without annotation noise. Pure data types that must cross isolation (`Effect`, `Send`, `LoadingPhase`, preview fixtures) are explicitly `nonisolated`.
 - `CinematicDomain` and `CinematicData` are **isolation-free**: entities and use cases are `Sendable` values that run wherever their caller does, and shared mutable state is owned by actors (`APIClient`, `CatalogSearchIndex`, `DiskCache`, the favorites repository).
-- Effects run as plain tasks; the only way back into state is `Send`, which hops to the main actor and drops intents from cancelled effects.
+- Every module, the app's packages and MVIKit alike, builds with the same **approachable concurrency** rules as the app target: `NonisolatedNonsendingByDefault` and `InferIsolatedConformances`. A `nonisolated async` function runs on its caller's actor, so "wherever their caller does" holds literally, and nothing hops to the global pool unless it says `@concurrent`. Expensive work stays off the main actor because it lives in those actors: decoding in `APIClient`, file I/O in `DiskCache`.
+- Effects run as tasks whose work MVIKit declares `@concurrent`, so effect bodies run off the main actor whatever the calling module's settings. The only way back into state is `Send`, which hops to the main actor and drops intents from cancelled effects.
+- Test targets match what they test: the app's unit and UI test targets also default to the main actor, and XCTest classes opt out with `nonisolated`.
 
 ## Trade-offs, named
 

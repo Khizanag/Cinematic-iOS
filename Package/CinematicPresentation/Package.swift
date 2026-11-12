@@ -5,6 +5,14 @@ import PackageDescription
 // Note what is missing: CinematicData. The presentation layer depends on
 // domain abstractions only — concrete data sources are injected by the app's
 // composition root. The package graph enforces the Clean dependency rule.
+// The app target's Approachable Concurrency, spelled out for SwiftPM: a
+// nonisolated async function runs on its caller's actor unless it is
+// `@concurrent`, and conformances of actor-isolated types are isolated.
+let approachableConcurrency: [SwiftSetting] = [
+    .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+    .enableUpcomingFeature("InferIsolatedConformances"),
+]
+
 let package = Package(
     name: "CinematicPresentation",
     defaultLocalization: "en",
@@ -17,7 +25,7 @@ let package = Package(
     dependencies: [
         .package(path: "../CinematicDesign"),
         .package(path: "../CinematicDomain"),
-        .package(url: "https://github.com/Khizanag/MVIKit", from: "1.0.1"),
+        .package(url: "https://github.com/Khizanag/MVIKit", from: "1.1.0"),
     ],
     targets: [
         .target(
@@ -32,14 +40,14 @@ let package = Package(
             ],
             swiftSettings: [
                 .defaultIsolation(MainActor.self),
-            ],
+            ] + approachableConcurrency,
         ),
         .testTarget(
             name: "CinematicPresentationTests",
             dependencies: ["CinematicPresentation"],
             swiftSettings: [
                 .defaultIsolation(MainActor.self),
-            ],
+            ] + approachableConcurrency,
         ),
     ],
     swiftLanguageModes: [.v6],

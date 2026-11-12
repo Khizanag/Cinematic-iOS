@@ -5,6 +5,14 @@ import PackageDescription
 // The data layer is isolation-free like the domain it implements: repositories
 // are `Sendable` and the API client is an `actor`, so no default actor
 // isolation is applied here.
+// The app target's Approachable Concurrency, spelled out for SwiftPM: a
+// nonisolated async function runs on its caller's actor unless it is
+// `@concurrent`, and conformances of actor-isolated types are isolated.
+let approachableConcurrency: [SwiftSetting] = [
+    .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+    .enableUpcomingFeature("InferIsolatedConformances"),
+]
+
 let package = Package(
     name: "CinematicData",
     platforms: [
@@ -23,10 +31,12 @@ let package = Package(
             dependencies: [
                 .product(name: "CinematicDomain", package: "CinematicDomain"),
             ],
+            swiftSettings: approachableConcurrency,
         ),
         .testTarget(
             name: "CinematicDataTests",
             dependencies: ["CinematicData"],
+            swiftSettings: approachableConcurrency,
         ),
     ],
     swiftLanguageModes: [.v6],
