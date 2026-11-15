@@ -42,8 +42,6 @@ private extension AccessibilityAuditTests {
 
         app.tapGenre("Drama")
         XCTAssertTrue(movie.waitForNonExistence(timeout: 10))
-        // The genre's subtitle grows the navigation bar and pushes the grid
-        // down; audited mid-move, captions are judged against stale pixels.
         waitUntilStill(app.staticTexts["Neon Tide"].firstMatch)
         try audit(app, isAccessibilitySize: isAccessibilitySize)
         app.tapGenre("All")
@@ -164,7 +162,7 @@ private extension AccessibilityAuditTests {
     @MainActor
     func audit(_ app: XCUIApplication, isAccessibilitySize: Bool) throws {
         // Read lazily, at the first issue: by then the layout the last action
-        // set off (a navigation bar growing a subtitle, say) has settled, so
+        // set off (a grid re-laying out after a filter, say) has settled, so
         // the frames match the ones the audit reports.
         var layout: Layout?
 

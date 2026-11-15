@@ -171,6 +171,23 @@
         }
       }
     },
+    "discover.filter.allGenres": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Genres"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All Genres"
+          }
+        }
+      }
+    },
     "discover.filter.label": {
       "extractionState": "manual",
       "localizations": {

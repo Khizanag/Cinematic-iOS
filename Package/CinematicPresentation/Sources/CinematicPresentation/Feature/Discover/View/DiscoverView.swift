@@ -31,7 +31,7 @@ public struct DiscoverView: View {
         content
             .background(DesignSystem.Color.background)
             .navigationTitle(Text("discover.title", bundle: .module))
-            .navigationSubtitle(store.state.selectedGenre?.displayName ?? "")
+            .navigationSubtitle(selectedGenreName)
             .toolbar { toolbarContent }
             .task { store.send(.task) }
     }
@@ -195,8 +195,10 @@ private extension DiscoverView {
         store.binding(\.selectedGenre) { .genreSelected($0) }
     }
 
+    /// Always set, so picking a genre swaps the text without the bar growing
+    /// a subtitle line and shifting the grid beneath it.
     var selectedGenreName: String {
-        store.state.selectedGenre?.displayName ?? String(localized: "discover.filter.all", bundle: .module)
+        store.state.selectedGenre?.displayName ?? String(localized: "discover.filter.allGenres", bundle: .module)
     }
 
     var rowCardWidth: CGFloat {
