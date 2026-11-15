@@ -4,8 +4,6 @@ import SwiftUI
 /// Poster, title, and an optional caption — the unit of every carousel and
 /// grid. Reads as one element to VoiceOver.
 public struct MovieCard: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
     private let title: String
     private let caption: String?
     private let posterURL: URL?
@@ -21,7 +19,7 @@ public struct MovieCard: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: DesignSystem.Spacing.xxs) {
             PosterImage(url: posterURL, width: width)
-            text
+            MovieCardText(title: title, caption: caption)
         }
         .frame(width: width, alignment: .leading)
         .contentShape(.rect)
@@ -29,9 +27,16 @@ public struct MovieCard: View {
     }
 }
 
-// MARK: - Sub-views
-private extension MovieCard {
-    var text: some View {
+// MARK: - MovieCardText
+/// The card's title and caption. `MovieCardSkeleton` lays out the same view,
+/// hidden, so a placeholder is exactly as tall as the card it stands in for.
+struct MovieCardText: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    let title: String
+    let caption: String?
+
+    var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(title)
                 .font(DesignSystem.Font.headline)
@@ -47,7 +52,7 @@ private extension MovieCard {
 }
 
 // MARK: - Helpers
-private extension MovieCard {
+private extension MovieCardText {
     // Every card in a row reserves the same text height, even without a
     // caption. A lazy carousel sizes its row from the first card it lays out,
     // so a taller card after it would be squeezed and its text cut short.

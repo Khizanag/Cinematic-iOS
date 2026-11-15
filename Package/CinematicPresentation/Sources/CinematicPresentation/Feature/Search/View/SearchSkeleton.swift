@@ -7,9 +7,9 @@ struct SearchSkeleton: View {
 
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: DesignSystem.Spacing.md) {
+            LazyVGrid(columns: columns, alignment: .leading, spacing: DesignSystem.Spacing.md) {
                 ForEach(0..<6, id: \.self) { _ in
-                    cell
+                    MovieCardSkeleton(width: cardWidth)
                 }
             }
             .padding(DesignSystem.Spacing.md)
@@ -20,23 +20,13 @@ struct SearchSkeleton: View {
     }
 }
 
-// MARK: - Sub-views
+// MARK: - Helpers
 private extension SearchSkeleton {
-    var columns: [GridItem] {
-        [
-            GridItem(
-                .adaptive(minimum: DesignSystem.Size.Poster.card(DesignSystem.Size.Poster.row, at: dynamicTypeSize)),
-                spacing: DesignSystem.Spacing.md,
-            ),
-        ]
+    var cardWidth: CGFloat {
+        DesignSystem.Size.Poster.card(DesignSystem.Size.Poster.row, at: dynamicTypeSize)
     }
 
-    var cell: some View {
-        VStack(alignment: .leading, spacing: DesignSystem.Spacing.xxs) {
-            SkeletonView()
-                .aspectRatio(1 / PosterImage.heightToWidthRatio, contentMode: .fit)
-            SkeletonView(cornerRadius: DesignSystem.CornerRadius.sm)
-                .frame(height: DesignSystem.Size.Skeleton.line)
-        }
+    var columns: [GridItem] {
+        [GridItem(.adaptive(minimum: cardWidth), spacing: DesignSystem.Spacing.md)]
     }
 }
