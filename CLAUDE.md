@@ -21,6 +21,9 @@ cd Package/CinematicComparison && swift test
 xcodebuild test -scheme CinematicPresentation -destination 'platform=iOS Simulator,name=iPhone 17'
 xcodebuild test -scheme CinematicDesign -destination 'platform=iOS Simulator,name=iPhone 17'
 xcodebuild test -project Cinematic.xcodeproj -scheme Cinematic -destination 'platform=iOS Simulator,name=iPhone 17'
+
+# Real device: build, sign, install, launch (team and phone in gitignored Scripts/device.conf)
+Scripts/device.sh
 ```
 
 There is no workspace — always build with `-project` (or from a package directory). The deployment target is iOS 26, so any iOS 26 or later simulator works (`iPhone 17` family). The repo builds with Xcode 27 (Swift 6.4 tools); CI runs on GitHub's `xcode-27` image.

@@ -47,3 +47,6 @@ TestResults.xcresult
 *.local
 *.pem
 *.key
+
+# This Mac's signing team and phone for Scripts/device.sh
+Scripts/device.conf
