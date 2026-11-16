@@ -1,0 +1,113 @@
+{
+  "fill-specializations": [
+    {
+      "value": {
+        "linear-gradient": [
+          "srgb:0.35686,0.29412,0.94118,1.00000",
+          "srgb:0.94510,0.40000,0.74118,1.00000"
+        ],
+        "orientation": {
+          "start": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "stop": {
+            "x": 1.0,
+            "y": 1.0
+          }
+        }
+      }
+    },
+    {
+      "appearance": "dark",
+      "value": {
+        "linear-gradient": [
+          "srgb:0.11765,0.10196,0.21176,1.00000",
+          "srgb:0.04314,0.03922,0.07059,1.00000"
+        ],
+        "orientation": {
+          "start": {
+            "x": 0.5,
+            "y": 0.0
+          },
+          "stop": {
+            "x": 0.5,
+            "y": 1.0
+          }
+        }
+      }
+    }
+  ],
+  "groups": [
+    {
+      "layers": [
+        {
+          "image-name-specializations": [
+            {
+              "value": "play.svg"
+            },
+            {
+              "appearance": "dark",
+              "value": "play-dark.svg"
+            }
+          ],
+          "name": "play",
+          "glass": true,
+          "position": {
+            "scale": 1,
+            "translation-in-points": [
+              12,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow": {
+        "kind": "layer-color",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.2
+      },
+      "specular": true
+    },
+    {
+      "layers": [
+        {
+          "image-name-specializations": [
+            {
+              "value": "strip.svg"
+            },
+            {
+              "appearance": "dark",
+              "value": "strip-dark.svg"
+            }
+          ],
+          "name": "strip",
+          "glass": true,
+          "position": {
+            "scale": 1,
+            "translation-in-points": [
+              12,
+              0
+            ]
+          }
+        }
+      ],
+      "opacity": 0.82,
+      "shadow": {
+        "kind": "layer-color",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.5
+      },
+      "specular": true
+    }
+  ],
+  "supported-platforms": {
+    "squares": "shared"
+  }
+}
