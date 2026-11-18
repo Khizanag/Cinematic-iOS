@@ -4,9 +4,13 @@ import Testing
 
 /// Polls until `condition` holds, yielding between checks — for asserting on
 /// state fed by long-lived streams, where `Store.settle()` would never return.
+///
+/// The timeout only bounds a failure: a passing check returns as soon as the
+/// condition holds. It is generous because loaded CI simulators run parallel
+/// tests many times slower than a desk machine.
 @MainActor
 func waitUntil(
-    timeout: Duration = .seconds(2),
+    timeout: Duration = .seconds(10),
     _ condition: () -> Bool,
 ) async {
     let clock = ContinuousClock()
