@@ -1,5 +1,7 @@
 # Cinematic
 
+![Cinematic app icon: a film strip curled into a C around a play button](docs/app-icon.svg)
+
 MVI + Clean Architecture for SwiftUI, shown working. Cinematic is a complete movie app for iOS 26 — Swift 6, five layered Swift packages, typed throws end to end, and tests at every seam. It exists to be read: every decision is documented, and nothing is a toy stub.
 
 [![CI](https://github.com/Khizanag/Cinematic-iOS/actions/workflows/ci.yml/badge.svg)](https://github.com/Khizanag/Cinematic-iOS/actions/workflows/ci.yml)
@@ -8,7 +10,10 @@ MVI + Clean Architecture for SwiftUI, shown working. Cinematic is a complete mov
 ![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)
 [![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkhizanag.github.io%2FCinematic-iOS%2Fdocs%2Fcoverage.json)](https://github.com/Khizanag/Cinematic-iOS/actions/workflows/ci.yml)
 [![Docs](https://img.shields.io/badge/docs-online-635BF3)](https://khizanag.github.io/Cinematic-iOS/)
+[![Built with MVIKit](https://img.shields.io/badge/built%20with-MVIKit-635BF3)](https://github.com/Khizanag/MVIKit)
 [![GitHub stars](https://img.shields.io/github/stars/Khizanag/Cinematic-iOS?style=social)](https://github.com/Khizanag/Cinematic-iOS/stargazers)
+
+![Demo: Discover loads, a genre filter narrows it to Sci-Fi, Interstellar opens, is favorited and plays its trailer, then Search finds Nolan's films and Favorites lists the saved one](docs/screenshots/demo.gif)
 
 | Discover | Movie detail | Discover, dark | Detail, dark |
 |---|---|---|---|
@@ -152,6 +157,7 @@ Read it all on the **[documentation site](https://khizanag.github.io/Cinematic-i
 | [docs/TESTING.md](docs/TESTING.md) | What each layer's tests prove and how the doubles work |
 | [docs/COMPARISON.md](docs/COMPARISON.md) | One feature as MV, MVVM and MVI, held to the same tests |
 | [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) | The VoiceOver, Dynamic Type, Reduce Motion / Transparency, and localization story |
+| [CHANGELOG.md](CHANGELOG.md) | What changed in each release |
 
 Each package also carries its own short README.
 

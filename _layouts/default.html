@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% seo %}
-  <link rel="icon" type="image/svg+xml" href="{{ '/docs/favicon.svg' | relative_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/docs/app-icon.svg' | relative_url }}">
   <style>
     :root {
       --bg: #0B0A12; --surface: #1C1B27; --surface-2: #141320;
@@ -25,7 +25,7 @@
       backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--separator);
     }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); font-size: 18px; }
-    .brand svg { width: 26px; height: 26px; }
+    .brand img { width: 26px; height: 26px; }
     .ghlink {
       border: 1px solid var(--separator); border-radius: 999px; padding: 7px 16px;
       color: var(--text); font-weight: 600; font-size: 14px;
@@ -65,7 +65,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="{{ '/' | relative_url }}">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22" fill="#141320"/><path d="M40 32 L70 50 L40 68 Z" fill="#8A84FB"/></svg>
+      <img src="{{ '/docs/app-icon.svg' | relative_url }}" alt="">
       Cinematic
     </a>
     <a class="ghlink" href="https://github.com/Khizanag/Cinematic-iOS">View on GitHub ↗</a>
