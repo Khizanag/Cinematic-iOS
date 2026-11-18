@@ -1,13 +1,15 @@
+import AppIntents
 import CinematicDesign
 import SwiftUI
 
 @main
 struct CinematicApp: App {
-    private let dependencies = AppDependencies.current()
+    private let dependencies: AppDependencies
 
     @State private var coordinator: AppCoordinator
 
     init() {
+        let dependencies = AppDependencies.current()
         let coordinator = AppCoordinator()
         #if DEBUG
         // `-deepLink cinematic://movie/<id>` routes at launch — lets the
@@ -16,6 +18,11 @@ struct CinematicApp: App {
             coordinator.handle(url)
         }
         #endif
+        // Intents resolve these with `@Dependency`, so a Shortcut sees the
+        // same favorites and navigation as the screens.
+        AppDependencyManager.shared.add(dependency: dependencies)
+        AppDependencyManager.shared.add(dependency: coordinator)
+        self.dependencies = dependencies
         _coordinator = State(initialValue: coordinator)
     }
 
@@ -27,6 +34,7 @@ struct CinematicApp: App {
                 .tint(DesignSystem.Color.accent)
                 .calmForUITests()
                 .onOpenURL { coordinator.handle($0) }
+                .task { CinematicShortcuts.updateAppShortcutParameters() }
         }
     }
 }

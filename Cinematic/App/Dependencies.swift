@@ -11,6 +11,7 @@ import SwiftUI
 /// different world — that one-line swap is the dependency rule paying rent.
 nonisolated struct AppDependencies {
     let fetchDiscoverCatalog: FetchDiscoverCatalogUseCase
+    let fetchTopMovies: FetchTopMoviesUseCase
     let searchMovies: SearchMoviesUseCase
     let fetchMovieDetails: FetchMovieDetailsUseCase
     let toggleFavorite: ToggleFavoriteUseCase
@@ -18,6 +19,7 @@ nonisolated struct AppDependencies {
 
     init(catalog: any MovieCatalogRepository, favorites: any FavoritesRepository) {
         fetchDiscoverCatalog = FetchDiscoverCatalogUseCase(repository: catalog)
+        fetchTopMovies = FetchTopMoviesUseCase(repository: catalog)
         searchMovies = SearchMoviesUseCase(repository: catalog)
         fetchMovieDetails = FetchMovieDetailsUseCase(repository: catalog)
         toggleFavorite = ToggleFavoriteUseCase(repository: favorites)

@@ -29,6 +29,7 @@ Use cases own business rules so neither reducers nor repositories grow them:
 - `FetchDiscoverCatalogUseCase` — the featured chart is required; genre rows load concurrently in a `TaskGroup`, degrade row-by-row, and keep declared order regardless of network race.
 - `SearchMoviesUseCase` — trims input and short-circuits queries under two characters.
 - `ObserveFavoritesUseCase` — subscribes *before* snapshotting, so a toggle racing the first read is buffered instead of lost.
+- `FetchTopMoviesUseCase` — one chart, overall or for a genre, capped to a limit. It serves Siri and Shortcuts, which need a short ranked list rather than the whole Discover catalog.
 - `FetchMovieDetailsUseCase`, `ToggleFavoriteUseCase` — thin by design; a use case that only delegates is still the seam where a rule would land tomorrow.
 
 Errors are domain vocabulary. `MovieError` is `Hashable` and travels through typed throws (`async throws(MovieError)`) from repository to reducer, which keeps feature states `Equatable` and reducer tests value-for-value.
@@ -72,6 +73,14 @@ The coordinator pattern lives entirely in the app target: `AppCoordinator` owns 
 Feature views are deliberately navigation-agnostic. They emit events — `onSelectMovie`, `onPlayTrailer` — and the factories translate those into coordinator calls. That keeps every feature previewable and testable in isolation, and it means "where does tapping a movie lead?" has exactly one answer, in one file.
 
 Deep links follow the same path: `cinematic://movie/<id>` lands in `AppCoordinator.handle(_:)`, which selects a tab and pushes a screen like any other caller.
+
+Siri and Shortcuts use it too. The intents in `Cinematic/Intent` are another entry point into the app, so they live in the app target next to the deep links. `CinematicApp` registers the one `AppDependencies` and the one `AppCoordinator` with `AppDependencyManager`, and each intent pulls what it needs with `@Dependency`:
+
+- `OpenMovieIntent` and `ShowFavoritesIntent` call `showMovie(_:)` and `show(_:)` on the coordinator, which are the same routes a deep link takes.
+- `TopMoviesIntent` runs `FetchTopMoviesUseCase` and answers without opening the app.
+- `MovieEntity` is the system's projection of `Movie`, the same way view state is a screen's projection. `Movie` itself stays free of App Intents conformances.
+
+Because a Shortcut shares the live favorites repository with the screens, favoriting from one shows up in the other immediately.
 
 ## Concurrency
 

@@ -2,6 +2,13 @@
 
 Notable changes to Cinematic. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Siri and Shortcuts. Get Top Movies (overall or for one genre) answers without opening the app and hands its movies to the next action. Open Movie and Show Favorites jump into the app. Each has ready-made phrases in English and German.
+- `FetchTopMoviesUseCase`, for surfaces that need one short chart instead of the whole Discover catalog.
+
 ## [1.1.0] - 2026-11-18
 
 ### Added
@@ -29,5 +36,6 @@ Notable changes to Cinematic. The format follows [Keep a Changelog](https://keep
 
 The first tagged release: Discover, Search, Movie detail with trailer playback, and Favorites. Built on five layered Swift packages with the MVI loop from MVIKit, typed throws, coordinator navigation with deep links, an offline cache, English and German String Catalogs, and Swift Testing at every layer.
 
+[Unreleased]: https://github.com/Khizanag/Cinematic-iOS/compare/v1.1.0...HEAD
 [1.1.0]: https://github.com/Khizanag/Cinematic-iOS/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Khizanag/Cinematic-iOS/releases/tag/v1.0.0

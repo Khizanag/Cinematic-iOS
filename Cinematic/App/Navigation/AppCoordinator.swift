@@ -32,7 +32,17 @@ final class AppCoordinator {
             url.host() == "movie",
             let id = url.pathComponents.dropFirst().first
         else { return }
+        showMovie(Movie.ID(id))
+    }
+
+    /// Opens a movie's detail screen on the Discover tab. Deep links,
+    /// widgets and Shortcuts all land here.
+    func showMovie(_ id: Movie.ID) {
         selectedTab = .discover
-        coordinator(for: .discover).push(.movieDetail(id: Movie.ID(id)))
+        coordinator(for: .discover).push(.movieDetail(id: id))
+    }
+
+    func show(_ tab: AppTab) {
+        selectedTab = tab
     }
 }

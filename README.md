@@ -95,6 +95,7 @@ The whole machinery is [MVIKit](https://github.com/Khizanag/MVIKit) — about 27
 - Per-screen skeletons, `ContentUnavailableView` for empty and error states, Dynamic Type, VoiceOver labels, Reduce Motion guards, and a String Catalog per module — localized in English and German, with locale-aware price and date formatting.
 - An automated accessibility audit of every screen, at the default and the largest text size. Its first runs found five real bugs, from a tiny hit area to card and empty-state text that truncated at accessibility sizes.
 - Deep links (`cinematic://movie/<id>`), a coordinator-driven `NavigationStack` per tab, and UI tests that run against an injected in-memory world.
+- Siri and Shortcuts through App Intents: "What's trending in Cinematic?" answers from the live chart, "Open Interstellar in Cinematic" lands on the detail screen through the same coordinator route as a deep link, and the phrases are localized in English and German.
 - Pull-to-refresh modeled as a state distinct from the initial load, so refreshing keeps content on screen instead of flashing skeletons — and a failed refresh is non-destructive.
 - A genre filter that is pure derived state: the catalog already holds every genre's chart, so picking a genre from the toolbar menu is one `reduce` with no effect, and a reload that drops the selected genre falls back to every row instead of showing nothing.
 

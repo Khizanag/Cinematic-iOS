@@ -1,0 +1,97 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "${applicationName} top movies": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringSet": {
+            "state": "translated",
+            "values": [
+              "${applicationName} Top-Filme"
+            ]
+          }
+        }
+      }
+    },
+    "Open ${target} in ${applicationName}": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringSet": {
+            "state": "translated",
+            "values": [
+              "Öffne ${target} in ${applicationName}"
+            ]
+          }
+        }
+      }
+    },
+    "Open my ${applicationName} favorites": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringSet": {
+            "state": "translated",
+            "values": [
+              "Öffne meine ${applicationName} Favoriten"
+            ]
+          }
+        }
+      }
+    },
+    "Show ${target} in ${applicationName}": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringSet": {
+            "state": "translated",
+            "values": [
+              "Zeig ${target} in ${applicationName}"
+            ]
+          }
+        }
+      }
+    },
+    "Show my favorites in ${applicationName}": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringSet": {
+            "state": "translated",
+            "values": [
+              "Zeig meine Favoriten in ${applicationName}"
+            ]
+          }
+        }
+      }
+    },
+    "Show the top movies in ${applicationName}": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringSet": {
+            "state": "translated",
+            "values": [
+              "Zeig die Top-Filme in ${applicationName}"
+            ]
+          }
+        }
+      }
+    },
+    "What's trending in ${applicationName}": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringSet": {
+            "state": "translated",
+            "values": [
+              "Was ist angesagt in ${applicationName}"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

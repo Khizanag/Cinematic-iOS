@@ -37,7 +37,7 @@ There is no workspace — always build with `-project` (or from a package direct
 | Data | `Package/CinematicData` | Domain |
 | Design system | `Package/CinematicDesign` | nothing |
 | Features | `Package/CinematicPresentation` | Domain, MVIKit, Design |
-| Composition + navigation | `Cinematic/` (app target) | everything |
+| Composition, navigation, App Intents | `Cinematic/` (app target) | everything |
 | Architecture comparison | `Package/CinematicComparison` (not linked by the app) | Domain, MVIKit |
 
 Full reasoning: `docs/ARCHITECTURE.md`, `docs/MVI.md`. Recipe for new work: `docs/ADDING-A-FEATURE.md`.
